@@ -1,0 +1,2601 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cartagena &amp; Murcia · 21–24 julio 2026</title>
+<style>
+  :root{
+    --cream:#F6F1E7;--cream-deep:#EFE7D6;--ink:#2A2520;--ink-soft:#6b6253;
+    --line:#cdbfa0;--terracotta:#BC5B39;--gold:#C9922E;--ochre:#8C6A2E;
+    --sage:#54684A;--teal:#2B5F6B;
+    --confirmed-bg:#E3ECE0;--confirmed-fg:#3C5C34;
+    --included-bg:#E1ECEF;--included-fg:#21515F;
+    --price-bg:#F5E8D0;--price-fg:#8C631B;
+    --accent:#BC5B39;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0;background:var(--cream);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.45;}
+  .wrap{max-width:640px;margin:0 auto;padding:0 18px 48px;}
+
+  header.hero{padding:28px 18px 14px;text-align:center;}
+  .hero .kicker{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);font-weight:600;}
+  .hero h1{font-family:"Iowan Old Style","Palatino Linotype",Georgia,serif;font-weight:600;font-size:32px;margin:6px 0 4px;color:var(--ink);}
+  .hero .sub{font-size:14px;color:var(--ink-soft);margin-bottom:10px;}
+  .hero .status{display:inline-block;font-size:12.5px;font-weight:700;padding:5px 14px;border-radius:999px;background:var(--cream-deep);color:var(--ink);}
+
+  .data-bar{max-width:640px;margin:10px auto 0;padding:0 18px;display:flex;gap:8px;overflow-x:auto;white-space:nowrap;-webkit-overflow-scrolling:touch;}
+  .data-bar::-webkit-scrollbar{display:none;}
+  .data-bar button,.data-bar a.bar-link{flex:0 0 auto;font-size:12.5px;font-weight:600;padding:7px 14px;border-radius:999px;border:1.5px solid var(--line);background:var(--cream);color:var(--ink);cursor:pointer;transition:background .2s;text-decoration:none;display:inline-block;}
+  .data-bar button:hover,.data-bar a.bar-link:hover{background:var(--cream-deep);}
+  #sync-status{text-align:center;font-size:12px;color:var(--ink-soft);padding:4px 0;min-height:18px;}
+
+  .ribbon{max-width:640px;margin:0 auto;padding:10px 12px 12px;overflow-x:auto;position:sticky;top:52px;z-index:19;background:var(--cream);border-bottom:1px solid var(--line);}
+  .ribbon-track{display:flex;align-items:flex-start;min-width:520px;position:relative;}
+  .ribbon-track::before{content:"";position:absolute;left:22px;right:22px;top:9px;height:2px;background:repeating-linear-gradient(to right,var(--line) 0,var(--line) 6px,transparent 6px,transparent 11px);}
+  .ribbon-fill{position:absolute;left:22px;top:9px;height:2px;background:var(--teal);width:0;z-index:0;transition:width .8s ease;}
+  .stop{flex:1;text-align:center;position:relative;z-index:1;}
+  .stop .dot{width:18px;height:18px;border-radius:50%;background:var(--cream);border:2.5px solid var(--line);margin:0 auto 8px;transition:background .4s,border-color .4s,box-shadow .4s;}
+  .stop .place{font-size:12.5px;font-weight:700;color:var(--ink-soft);transition:color .4s;}
+  .stop .when{font-size:10.5px;color:var(--ink-soft);margin-top:2px;}
+  .stop.visited .dot{background:var(--teal);border-color:var(--teal);}
+  .stop.visited .place{color:var(--ink);}
+  .stop.current .dot{background:var(--gold);border-color:var(--gold);box-shadow:0 0 0 5px rgba(201,146,46,.22);animation:pulse 2.2s infinite;}
+  .stop.current .place{color:var(--ink);font-weight:800;}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(201,146,46,.35);}70%{box-shadow:0 0 0 9px rgba(201,146,46,0);}100%{box-shadow:0 0 0 0 rgba(201,146,46,0);}}
+
+  nav.daynav{position:sticky;top:0;z-index:20;background:var(--cream);border-bottom:1px solid var(--line);display:flex;gap:8px;padding:10px 18px;overflow-x:auto;max-width:640px;margin:0 auto;}
+  nav.daynav a{flex:0 0 auto;text-decoration:none;color:var(--ink);font-size:12.5px;font-weight:600;padding:7px 13px;border-radius:999px;border:1.5px solid var(--line);white-space:nowrap;transition:background .2s,color .2s,border-color .2s;}
+  nav.daynav a.active{background:var(--day-accent,var(--ink));color:#fff;border-color:transparent;}
+  nav.daynav a.today::after{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:currentColor;margin-left:6px;vertical-align:middle;}
+
+  section.day{scroll-margin-top:160px;margin-top:12px;}
+  section.day .timeline .item{position:relative;z-index:1;}
+  .day-summary{padding:6px 0 0;display:flex;flex-wrap:wrap;gap:5px;}
+  .day-summary-item{font-size:11px;color:rgba(255,255,255,0.88);background:rgba(0,0,0,0.18);border-radius:999px;padding:2px 8px;white-space:nowrap;}
+  .day-header{
+    background:var(--accent);color:#fff;border-radius:14px;padding:16px 18px 36px;margin-bottom:4px;
+    display:flex;align-items:flex-start;justify-content:space-between;gap:10px;
+    position:relative;
+  }
+  .day-header .day-header-left{flex:1;}
+  .day-header .d-label{font-size:11px;letter-spacing:.1em;text-transform:uppercase;opacity:.85;}
+  .day-header h2{font-family:"Iowan Old Style","Palatino Linotype",Georgia,serif;font-size:20px;margin:3px 0 6px;font-weight:600;line-height:1.25;}
+  .day-header-actions{display:flex;flex-direction:row;align-items:center;gap:8px;flex-shrink:0;}
+  .btn-collapse{width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,0.2);border:1.5px solid rgba(255,255,255,0.5);color:#fff;font-size:13px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .25s;flex-shrink:0;}
+  .btn-collapse.collapsed{transform:rotate(-90deg);}
+  .btn-add-item{
+    width:32px;height:32px;border-radius:50%;
+    background:rgba(255,255,255,0.25);border:2px solid rgba(255,255,255,0.6);
+    color:#fff;font-size:20px;line-height:1;
+    display:flex;align-items:center;justify-content:center;
+    cursor:pointer;transition:background .2s;
+  }
+  .btn-add-item:hover{background:rgba(255,255,255,0.4);}
+  .btn-delete-day{
+    width:32px;height:32px;border-radius:50%;
+    background:rgba(0,0,0,0.15);border:2px solid rgba(255,255,255,0.4);
+    color:#fff;font-size:14px;line-height:1;
+    display:flex;align-items:center;justify-content:center;
+    cursor:pointer;transition:background .2s;
+  }
+  .btn-delete-day:hover{background:rgba(0,0,0,0.3);}
+
+  /* ---- Timeline: hora | nodo-encima-de-línea | contenido ---- */
+  .timeline{margin-top:6px;}
+
+  .item{
+    display:grid;
+    grid-template-columns:52px 34px 1fr;
+    border-bottom:1px dashed var(--line);
+    transition:opacity .4s;
+    padding:10px 0;
+  }
+  .item:last-child{border-bottom:none;}
+
+  /* Col 1 — hora */
+  .item .time-col{
+    grid-column:1;grid-row:1 / 999;
+    display:flex;align-items:flex-start;justify-content:flex-end;
+    padding-right:8px;padding-top:4px;
+  }
+  .item .time-col .time-tag{
+    font-family:ui-monospace,"SF Mono","Roboto Mono","Courier New",monospace;
+    font-size:11px;font-weight:700;color:var(--accent);
+    text-align:right;line-height:1.3;white-space:nowrap;
+  }
+
+  /* Col 2 — nodo arriba + línea debajo */
+  .item .node-col{
+    grid-column:2;grid-row:1 / 999;
+    display:flex;flex-direction:column;align-items:center;
+  }
+  .item .node{
+    width:26px;height:26px;border-radius:50%;
+    background:var(--cream);border:2px solid var(--accent);
+    display:flex;align-items:center;justify-content:center;
+    font-size:13px;flex-shrink:0;z-index:1;
+  }
+  .item .node-line{
+    width:2px;background:var(--line);
+    flex:1;min-height:8px;
+    margin-top:2px;
+  }
+
+  /* Col 3 — contenido */
+  .item .content{
+    grid-column:3;grid-row:1 / 999;
+    padding-left:10px;padding-right:4px;
+  }
+
+  .item .title{font-size:15px;font-weight:700;color:var(--ink);line-height:1.35;}
+  .item .meta-row{margin-top:5px;font-size:12.5px;color:var(--ink-soft);display:flex;flex-direction:column;gap:4px;}
+  .item .meta-row span{display:inline-flex;align-items:center;gap:4px;}
+  .item .meta-row a{color:var(--teal);text-decoration:none;border-bottom:1px solid currentColor;}
+  .badges{margin-top:7px;display:flex;flex-wrap:wrap;gap:6px;}
+  .badge{font-size:11.5px;font-weight:600;padding:3px 9px;border-radius:999px;}
+  .badge.confirmed{background:var(--confirmed-bg);color:var(--confirmed-fg);}
+  .badge.included{background:var(--included-bg);color:var(--included-fg);}
+  .badge.price{background:var(--price-bg);color:var(--price-fg);}
+  .item .notes{margin-top:6px;font-size:13px;color:var(--ink-soft);}
+
+  .item.done{opacity:.5;}
+  .item.now .content{background:var(--cream-deep);border-radius:10px;padding:10px 12px;box-shadow:inset 3px 0 0 0 var(--accent);}
+  .item.now .title::after{content:" · AHORA";font-size:10px;letter-spacing:.06em;font-weight:700;background:var(--accent);color:#fff;padding:2px 8px;border-radius:999px;margin-left:8px;vertical-align:middle;}
+
+  .item-actions{margin-top:8px;display:flex;gap:8px;flex-wrap:wrap;}
+  .btn-action{font-size:12px;font-weight:600;padding:5px 12px;border-radius:999px;border:1.5px dashed var(--line);background:transparent;color:var(--ink-soft);cursor:pointer;transition:background .2s,color .2s;}
+  .btn-action:hover{background:var(--cream-deep);color:var(--ink);}
+
+  /* Collapsible */
+  .cblock{margin-top:10px;border-radius:10px;border:1px solid var(--line);overflow:hidden;}
+  .cblock-header{display:flex;align-items:center;justify-content:space-between;padding:9px 14px;cursor:pointer;user-select:none;background:var(--cream-deep);}
+  .cblock-header .cblock-title{font-size:12px;font-weight:700;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.08em;}
+  .cblock-header .cblock-arrow{font-size:11px;color:var(--ink-soft);transition:transform .25s;}
+  .cblock-header.collapsed .cblock-arrow{transform:rotate(-90deg);}
+  .cblock-body{padding:10px 14px;background:var(--cream-deep);}
+  .cblock-body.hidden{display:none;}
+
+  .expense-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px;}
+  .expense-row label{font-size:12.5px;color:var(--ink-soft);}
+  .expense-row input[type=number]{width:72px;padding:4px 6px;border:1px solid var(--line);border-radius:6px;background:var(--cream);font-size:13px;color:var(--ink);}
+  .expense-row select{padding:4px 6px;border:1px solid var(--line);border-radius:6px;background:var(--cream);font-size:12.5px;color:var(--ink);}
+  .traveler-checks{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px;}
+  .traveler-checks label{display:flex;align-items:center;gap:4px;font-size:12.5px;background:var(--cream);border:1px solid var(--line);border-radius:999px;padding:3px 10px;cursor:pointer;transition:background .2s;}
+  .traveler-checks label:has(input:checked){background:var(--ink);color:#fff;border-color:var(--ink);}
+  .traveler-checks input[type=checkbox]{display:none;}
+  .exp-total{margin-top:8px;font-size:13px;font-weight:700;color:var(--price-fg);}
+
+  .task-item{display:flex;align-items:flex-start;gap:8px;padding:5px 0;border-bottom:1px dashed var(--line);}
+  .task-item:last-of-type{border-bottom:none;}
+  .task-item input[type=checkbox]{margin-top:3px;accent-color:var(--teal);width:15px;height:15px;flex-shrink:0;cursor:pointer;}
+  .task-item label{font-size:13px;cursor:pointer;flex:1;}
+  .task-item.checked label{text-decoration:line-through;opacity:.45;}
+  .task-add-row{display:flex;gap:6px;margin-top:8px;}
+  .task-add-row input[type=text]{flex:1;padding:5px 8px;border:1px solid var(--line);border-radius:8px;background:var(--cream);font-size:12.5px;color:var(--ink);}
+  .task-add-row button{padding:5px 12px;border:none;border-radius:8px;background:var(--teal);color:#fff;font-size:12.5px;font-weight:600;cursor:pointer;}
+
+  .annotation-item{display:flex;align-items:flex-start;justify-content:space-between;padding:4px 0;border-bottom:1px dashed var(--line);gap:8px;}
+  .annotation-item:last-of-type{border-bottom:none;}
+  .annotation-text{font-size:13px;color:var(--ink);white-space:pre-wrap;flex:1;}
+  .annotation-icons{display:flex;gap:6px;flex-shrink:0;}
+  .annotation-icons button{font-size:14px;background:transparent;border:none;cursor:pointer;padding:0;opacity:.6;}
+  .annotation-icons button:hover{opacity:1;}
+  .annotation-edit-area{width:100%;padding:6px 8px;border:1px solid var(--line);border-radius:8px;background:var(--cream);font-size:13px;color:var(--ink);font-family:inherit;resize:vertical;min-height:60px;}
+  .ann-add-row{display:flex;flex-direction:column;gap:6px;margin-top:12px;}
+  .ann-add-row textarea{width:100%;padding:6px 8px;border:1px solid var(--line);border-radius:8px;background:var(--cream);font-size:13px;color:var(--ink);font-family:inherit;resize:vertical;min-height:60px;}
+  .ann-add-row button{align-self:flex-end;padding:5px 14px;border:none;border-radius:8px;background:var(--teal);color:#fff;font-size:12.5px;font-weight:600;cursor:pointer;}
+  /* Tareas inline en el ítem — estilo badge azul */
+  .task-inline{margin-top:7px;display:flex;flex-direction:column;gap:5px;}
+  .task-inline-title{font-size:12px;font-weight:700;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.08em;}
+  .task-inline-item{
+    font-size:11.5px;font-weight:600;padding:3px 9px;border-radius:6px;
+    background:var(--included-bg);color:var(--included-fg);
+    cursor:pointer;align-self:flex-start;display:flex;align-items:center;gap:6px;
+  }
+  .task-inline-item.done{opacity:.5;text-decoration:line-through;}
+  .task-inline-item input[type=checkbox]{accent-color:var(--teal);cursor:pointer;}
+  .ann-inline{margin-top:7px;display:flex;flex-direction:column;gap:5px;}
+  .ann-inline-title{font-size:12px;font-weight:700;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.08em;}
+  .ann-inline-item{
+    font-size:11.5px;font-weight:600;padding:3px 9px;border-radius:6px;
+    background:var(--confirmed-bg);color:var(--confirmed-fg);
+    cursor:pointer;align-self:flex-start;
+  }
+  .ann-inline-item:hover{opacity:.8;}
+  /* Icono flotante de anotaciones */
+  .btn-ann-icon{background:transparent;border:none;cursor:pointer;font-size:15px;opacity:.55;padding:0;transition:opacity .2s;}
+  .btn-ann-icon:hover{opacity:1;}
+  .btn-ann-icon.has-anns{opacity:1;}
+
+  .tasks-global{scroll-margin-top:20px;margin-top:28px;background:var(--cream-deep);border-radius:16px;padding:18px;border:1px solid var(--line);}
+  .tasks-global h3{font-family:"Iowan Old Style","Palatino Linotype",Georgia,serif;font-size:18px;margin:0 0 14px;color:var(--ink);}
+  .task-item-g{display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px dashed var(--line);}
+  .task-item-g:last-of-type{border-bottom:none;}
+  .task-item-g input[type=checkbox]{margin-top:3px;accent-color:var(--teal);width:16px;height:16px;flex-shrink:0;cursor:pointer;}
+  .task-item-g label{font-size:13.5px;cursor:pointer;}
+  .task-item-g.checked label{text-decoration:line-through;opacity:.45;}
+  .task-add{display:flex;gap:8px;margin-top:12px;}
+  .task-add input[type=text]{flex:1;padding:7px 10px;border:1px solid var(--line);border-radius:8px;background:var(--cream);font-size:13px;color:var(--ink);}
+  .task-add button{padding:7px 14px;border:none;border-radius:8px;background:var(--teal);color:#fff;font-size:13px;font-weight:600;cursor:pointer;}
+  .tasks-empty{font-size:13px;color:var(--ink-soft);font-style:italic;padding:6px 0;}
+
+  .summary-panel{scroll-margin-top:20px;margin-top:32px;background:var(--cream-deep);border-radius:16px;padding:20px 18px;border:1px solid var(--line);}
+  .summary-panel h3{font-family:"Iowan Old Style","Palatino Linotype",Georgia,serif;font-size:18px;margin:0 0 16px;color:var(--ink);}
+  .summary-section{border-top:1px solid var(--line);margin-top:16px;padding-top:12px;}
+  .summary-section:first-of-type{border-top:none;margin-top:0;}
+  .summary-section-header{display:flex;align-items:center;justify-content:space-between;cursor:pointer;user-select:none;padding:4px 0;}
+  .summary-section-header h4{margin:0;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-soft);}
+  .summary-section-header .s-arrow{font-size:11px;color:var(--ink-soft);transition:transform .25s;}
+  .summary-section-header.collapsed .s-arrow{transform:rotate(-90deg);}
+  .summary-section-body{margin-top:10px;}
+  .summary-section-body.hidden{display:none;}
+  .summary-person{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px dashed var(--line);}
+  .summary-person:last-of-type{border-bottom:none;}
+  .summary-person .name{font-weight:700;font-size:14px;}
+  .summary-person .amounts{text-align:right;font-size:13px;}
+  .summary-person .spaid{color:var(--confirmed-fg);font-weight:600;}
+  .summary-person .sowes{color:var(--price-fg);}
+  .debts-section{margin-top:20px;}
+  .debts-section h4{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-soft);margin:0 0 10px;}
+  .debt-row{font-size:13px;padding:5px 0;border-bottom:1px dashed var(--line);display:flex;justify-content:space-between;}
+  .debt-row:last-child{border-bottom:none;}
+  .debt-amount{font-weight:700;color:var(--price-fg);}
+
+  /* Modal añadir ítem */
+  .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:100;display:flex;align-items:flex-end;justify-content:center;}
+  .modal-overlay.hidden{display:none;}
+  .modal-sheet{background:var(--cream);border-radius:20px 20px 0 0;padding:24px 20px 36px;width:100%;max-width:640px;max-height:85vh;overflow-y:auto;}
+  .modal-sheet h3{font-family:"Iowan Old Style","Palatino Linotype",Georgia,serif;font-size:18px;margin:0 0 18px;color:var(--ink);}
+  .modal-field{margin-bottom:14px;}
+  .modal-field label{display:block;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-soft);margin-bottom:5px;}
+  .modal-field input,.modal-field textarea,.modal-field select{width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:#fff;font-size:14px;color:var(--ink);font-family:inherit;}
+  .modal-field textarea{resize:vertical;min-height:60px;}
+  .modal-actions{display:flex;gap:10px;margin-top:18px;}
+  .modal-actions button{flex:1;padding:10px;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;}
+  .btn-modal-save{background:var(--teal);color:#fff;}
+  .btn-modal-cancel{background:var(--cream-deep);color:var(--ink);}
+
+  footer{text-align:center;padding:30px 18px 10px;color:var(--ink-soft);font-size:12px;}
+  footer .foot-route{font-weight:600;color:var(--ink);margin-bottom:4px;}
+
+  .btn-top{
+    position:fixed;bottom:24px;right:20px;z-index:200;
+    width:48px;height:48px;border-radius:50%;
+    background:var(--ink);color:#fff;font-size:22px;
+    border:none;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 4px 16px rgba(0,0,0,.35);
+    opacity:0;pointer-events:none;
+    transition:opacity .3s;
+  }
+  .btn-top.visible{opacity:1;pointer-events:auto;}
+  /* Menú lateral (drawer) */
+  .drawer-overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:500;display:flex;justify-content:flex-end;}
+  .drawer-overlay.drawer-hidden{display:none !important;}
+  .drawer{width:280px;max-width:85vw;height:100%;background:var(--cream);box-shadow:-4px 0 24px rgba(0,0,0,.2);display:flex;flex-direction:column;overflow-y:auto;}
+  .drawer-header{padding:20px 18px 16px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
+  .drawer-header h3{margin:0;font-family:"Iowan Old Style","Palatino Linotype",Georgia,serif;font-size:18px;color:var(--ink);}
+  .drawer-close{background:transparent;border:none;font-size:22px;cursor:pointer;color:var(--ink-soft);padding:0;line-height:1;}
+  .drawer-section{padding:16px 18px;border-bottom:1px solid var(--line);flex-shrink:0;}
+  .drawer-section h4{margin:0 0 12px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-soft);}
+  .drawer-item{display:flex;align-items:center;gap:10px;padding:10px 0;cursor:pointer;color:var(--ink);font-size:14px;font-weight:500;border:none;background:transparent;width:100%;text-align:left;}
+  .drawer-item:hover{color:var(--teal);}
+  .drawer-item span.icon{font-size:18px;width:24px;text-align:center;flex-shrink:0;}
+  .btn-hamburger{background:transparent;border:none;cursor:pointer;font-size:20px;padding:4px 8px;color:var(--ink);flex-shrink:0;}
+
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="kicker">Road trip desde Castellón</div>
+  <h1>Cartagena &amp; Murcia</h1>
+  <div class="sub">21 – 24 de julio de 2026 · 4 días / 3 noches · 7 viajeros</div>
+  <div class="status" id="status"></div>
+</header>
+
+<div class="data-bar">
+  <button class="btn-hamburger" data-action="open-drawer">☰</button>
+  <button onclick="showSyncModal()">🔄 Sincronizar</button>
+  <button onclick="showTravelersModal()">👥 Viajeros</button>
+  <a class="bar-link" href="#globalTasks">📋 Tareas</a>
+  <a class="bar-link" href="#summaryAnchor">💰 Gastos</a>
+</div>
+<div id="sync-status"></div>
+
+
+<div class="modal-overlay hidden" id="syncModal">
+  <div class="modal-sheet">
+    <h3>🔄 Sincronizar</h3>
+    <p style="font-size:14px;color:var(--ink-soft);margin:0 0 20px;">¿Qué quieres hacer?</p>
+    <div class="modal-actions">
+      <button class="btn-modal-cancel" onclick="hideSyncModal()">Cancelar</button>
+      <button class="btn-modal-save" style="background:var(--teal);" onclick="hideSyncModal();showSyncLoadConfirm()">☁️ Cargar del servidor</button>
+      <button class="btn-modal-save" onclick="hideSyncModal();syncToCloud()">💾 Guardar en servidor</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay hidden" id="syncLoadConfirmModal">
+  <div class="modal-sheet">
+    <h3>⚠️ Cargar del servidor</h3>
+    <p style="font-size:14px;color:var(--ink-soft);margin:0 0 20px;">Esto reemplazará <strong>todos los datos locales</strong> con los del servidor. Los cambios no guardados se perderán. ¿Continuar?</p>
+    <div class="modal-actions">
+      <button class="btn-modal-cancel" onclick="hideSyncLoadConfirm()">Cancelar</button>
+      <button class="btn-modal-save" style="background:#c0392b;" onclick="hideSyncLoadConfirm();syncFromCloud()">Sí, cargar del servidor</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay hidden" id="expenseModal">
+  <div class="modal-sheet">
+    <h3>💶 Gastos de la actividad</h3>
+    <div id="exp-list-body"></div>
+    <div style="margin-top:12px;">
+      <button onclick="openExpFormModal(false)" style="width:100%;padding:8px;border:1.5px dashed var(--line);border-radius:8px;background:transparent;font-size:13px;font-weight:600;cursor:pointer;color:var(--ink-soft);">+ Añadir gasto</button>
+    </div>
+    <div class="modal-actions" style="margin-top:12px;">
+      <button class="btn-modal-cancel" onclick="hideExpenseModal()">Cerrar</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay hidden" id="expFormModal">
+  <div class="modal-sheet">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+      <h3 style="margin:0;font-family:'Iowan Old Style','Palatino Linotype',Georgia,serif;font-size:18px;color:var(--ink);" id="exp-form-title">Añadir gasto</h3>
+      <button onclick="showExpFormAnnModal()" style="background:transparent;border:none;cursor:pointer;font-size:22px;padding:0;" id="exp-form-ann-btn" title="Anotaciones">📝</button>
+    </div>
+    <div class="modal-field"><label>Concepto</label><input type="text" id="ef-concept" placeholder="ej. Entradas, Cena..."></div>
+    <div class="modal-field"><label>Fecha</label><input type="date" id="ef-date"></div>
+    <div class="modal-field"><label>Total €</label><input type="number" id="ef-amount" min="0" step="0.01" placeholder="0.00"></div>
+    <div class="modal-field"><label>Pagó</label><select id="ef-payer"></select></div>
+    <div class="modal-field">
+      <label>Para quién</label>
+      <div class="traveler-checks" id="ef-checks"></div>
+    </div>
+    <div id="exp-form-ann-pills"></div>
+    <div class="modal-actions">
+      <button class="btn-modal-cancel" onclick="hideExpFormModal()">Cancelar</button>
+      <button class="btn-modal-save" onclick="saveExpForm()">Añadir</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay hidden" id="expFormAnnModal">
+  <div class="modal-sheet">
+    <h3>📝 Nueva anotación</h3>
+    <div class="ann-add-row" style="margin-top:8px;">
+      <textarea id="exp-form-ann-input" placeholder="Escribe una anotación..."></textarea>
+    </div>
+    <div class="modal-actions" style="margin-top:12px;">
+      <button class="btn-modal-cancel" onclick="hideExpFormAnnModal()">Cancelar</button>
+      <button class="btn-modal-save" onclick="addExpFormAnn()">Añadir</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay hidden" id="editDayModal">
+  <div class="modal-sheet">
+    <h3>✏️ Editar día</h3>
+    <div class="modal-field"><label>Tema del día</label><input type="text" id="ed-theme" placeholder="Descripción del día"></div>
+    <div class="modal-field"><label>Alojamiento</label><input type="text" id="ed-stay" placeholder="ej. 🛏️ Hotel Manolo"></div>
+    <div class="modal-field"><label>Color</label><input type="color" id="ed-color"></div>
+    <div class="modal-actions">
+      <button class="btn-modal-cancel" onclick="hideEditDayModal()">Cancelar</button>
+      <button class="btn-modal-save" onclick="saveEditDay()">Guardar</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay hidden" id="tripConfigModal">
+  <div class="modal-sheet">
+    <h3>🗺️ Origen y destino</h3>
+    <div class="modal-field"><label>Origen</label><input type="text" id="tc-origin" placeholder="Ciudad de salida"></div>
+    <div class="modal-field"><label>Destino</label><input type="text" id="tc-destination" placeholder="Ciudad de llegada"></div>
+    <div class="modal-actions">
+      <button class="btn-modal-cancel" onclick="hideTripConfigModal()">Cancelar</button>
+      <button class="btn-modal-save" onclick="saveTripConfig()">Guardar</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay hidden" id="confirmDeleteModal">
+  <div class="modal-sheet">
+    <h3>⚠️ Eliminar día</h3>
+    <p style="font-size:14px;color:var(--ink-soft);margin:0 0 20px;">¿Seguro que quieres eliminar este día y todas sus actividades?</p>
+    <div class="modal-actions">
+      <button class="btn-modal-cancel" onclick="hideConfirmDelete()">Cancelar</button>
+      <button class="btn-modal-save" style="background:#c0392b;" onclick="executeDeleteDay()">Eliminar</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay hidden" id="confirmDeleteItemModal">
+  <div class="modal-sheet">
+    <h3>⚠️ Eliminar actividad</h3>
+    <p style="font-size:14px;color:var(--ink-soft);margin:0 0 20px;">¿Seguro que quieres eliminar esta actividad?</p>
+    <div class="modal-actions">
+      <button class="btn-modal-cancel" onclick="hideConfirmDeleteItem()">Cancelar</button>
+      <button class="btn-modal-save" style="background:#c0392b;" onclick="executeDeleteItem()">Eliminar</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay hidden" id="confirmDeleteExpenseModal">
+  <div class="modal-sheet">
+    <h3>⚠️ Eliminar gasto</h3>
+    <p style="font-size:14px;color:var(--ink-soft);margin:0 0 20px;">¿Seguro que quieres eliminar este gasto? Esta acción no se puede deshacer.</p>
+    <div class="modal-actions">
+      <button class="btn-modal-cancel" onclick="hideConfirmDeleteExpense()">Cancelar</button>
+      <button class="btn-modal-save" style="background:#c0392b;" onclick="executeDeleteExpense()">Eliminar</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay hidden" id="confirmDeleteAnnotationModal">
+  <div class="modal-sheet">
+    <h3>⚠️ Eliminar anotación</h3>
+    <p style="font-size:14px;color:var(--ink-soft);margin:0 0 20px;">¿Seguro que quieres eliminar esta anotación?</p>
+    <div class="modal-actions">
+      <button class="btn-modal-cancel" onclick="hideConfirmDeleteAnnotation()">Cancelar</button>
+      <button class="btn-modal-save" style="background:#c0392b;" onclick="executeDeleteAnnotation()">Eliminar</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay hidden" id="confirmDeletePaymentModal">
+  <div class="modal-sheet">
+    <h3>⚠️ Eliminar pago</h3>
+    <p style="font-size:14px;color:var(--ink-soft);margin:0 0 20px;">¿Seguro que quieres eliminar este pago?</p>
+    <div class="modal-actions">
+      <button class="btn-modal-cancel" onclick="hideConfirmDeletePayment()">Cancelar</button>
+      <button class="btn-modal-save" style="background:#c0392b;" onclick="executeDeletePayment()">Eliminar</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay hidden" id="confirmDeleteTaskModal">
+  <div class="modal-sheet">
+    <h3>⚠️ Eliminar tarea</h3>
+    <p style="font-size:14px;color:var(--ink-soft);margin:0 0 20px;">¿Seguro que quieres eliminar esta tarea?</p>
+    <div class="modal-actions">
+      <button class="btn-modal-cancel" onclick="hideConfirmDeleteTask()">Cancelar</button>
+      <button class="btn-modal-save" style="background:#c0392b;" onclick="executeDeleteTask()">Eliminar</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay hidden" id="confirmDeleteTravelerModal">
+  <div class="modal-sheet">
+    <h3>⚠️ Eliminar viajero</h3>
+    <p style="font-size:14px;color:var(--ink-soft);margin:0 0 20px;">¿Seguro que quieres eliminar este viajero?</p>
+    <div class="modal-actions">
+      <button class="btn-modal-cancel" onclick="hideConfirmDeleteTraveler()">Cancelar</button>
+      <button class="btn-modal-save" style="background:#c0392b;" onclick="executeDeleteTraveler()">Eliminar</button>
+    </div>
+  </div>
+</div>
+
+
+
+
+<div class="modal-overlay hidden" id="travelersModal">
+  <div class="modal-sheet">
+    <h3>👥 Viajeros</h3>
+    <div id="travelers-list"></div>
+    <div class="task-add-row" style="margin-top:12px;">
+      <input type="text" id="traveler-input" placeholder="Nombre del viajero...">
+      <button onclick="addTraveler()">Añadir</button>
+    </div>
+    <div class="modal-actions" style="margin-top:16px;">
+      <button class="btn-modal-cancel" onclick="hideTravelersModal()">Cerrar</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay hidden" id="paymentModal">
+  <div class="modal-sheet">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+      <h3 style="margin:0;font-family:'Iowan Old Style','Palatino Linotype',Georgia,serif;font-size:18px;color:var(--ink);" id="payment-modal-title">💸 Registrar pago</h3>
+      <button id="payment-delete-btn" onclick="confirmDeleteCurrentPayment()" style="display:none;background:transparent;border:none;cursor:pointer;font-size:22px;padding:0;opacity:.7;" title="Eliminar">🗑️</button>
+    </div>
+    <div class="modal-field">
+      <label>Quién paga</label>
+      <div class="traveler-checks" id="pay-from-checks"></div>
+    </div>
+    <div class="modal-field"><label>A quién</label><select id="pay-to"></select></div>
+    <div class="modal-field"><label>Importe por persona €</label><input type="number" id="pay-amount" min="0" step="0.01" placeholder="0.00"></div>
+    <div class="modal-field"><label>Concepto (opcional)</label><input type="text" id="pay-concept" placeholder="ej. Bizum hotel"></div>
+    <div class="modal-actions">
+      <button class="btn-modal-cancel" onclick="hidePaymentModal()">Cancelar</button>
+      <button class="btn-modal-save" id="payment-save-btn" onclick="savePayment()">Registrar</button>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal-overlay hidden" id="taskModal">
+  <div class="modal-sheet">
+    <h3>📌 Tareas</h3>
+    <div id="task-modal-list"></div>
+    <div class="task-add-row" style="margin-top:12px;">
+      <input type="text" id="task-modal-input" placeholder="Nueva tarea...">
+      <button onclick="addTaskFromModal()">Añadir</button>
+    </div>
+    <div class="modal-actions" style="margin-top:16px;">
+      <button class="btn-modal-cancel" onclick="hideTaskModal()">Cerrar</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay hidden" id="taskEditModal">
+  <div class="modal-sheet">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+      <h3 style="margin:0;font-family:'Iowan Old Style','Palatino Linotype',Georgia,serif;font-size:18px;color:var(--ink);">📌 Editar tarea</h3>
+      <button data-action="confirm-delete-task-edit" style="background:transparent;border:none;cursor:pointer;font-size:22px;padding:0;opacity:.7;" title="Eliminar">🗑️</button>
+    </div>
+    <div class="modal-field">
+      <textarea id="task-edit-input" style="width:100%;padding:8px;border:1px solid var(--line);border-radius:8px;font-size:13px;font-family:inherit;resize:vertical;min-height:60px;background:var(--cream);"></textarea>
+    </div>
+    <div class="modal-actions" style="margin-top:12px;">
+      <button class="btn-modal-cancel" onclick="hideTaskEditModal()">Cancelar</button>
+      <button class="btn-modal-save" onclick="saveTaskEdit()">Guardar</button>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal-overlay hidden" id="annAddModal">
+  <div class="modal-sheet">
+    <h3>📝 Nueva anotación</h3>
+    <div class="ann-add-row" style="margin-top:8px;">
+      <textarea id="ann-add-input" placeholder="Escribe una anotación..."></textarea>
+    </div>
+    <div class="modal-actions" style="margin-top:12px;">
+      <button class="btn-modal-cancel" onclick="hideAnnAddModal()">Cancelar</button>
+      <button class="btn-modal-save" onclick="saveNewAnnotation()">Añadir</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay hidden" id="annEditModal">
+  <div class="modal-sheet">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+      <h3 style="margin:0;font-family:'Iowan Old Style','Palatino Linotype',Georgia,serif;font-size:18px;color:var(--ink);">📝 Anotación</h3>
+      <div style="display:flex;gap:10px;">
+        <button onclick="saveEditAnnotation()" style="background:transparent;border:none;cursor:pointer;font-size:22px;padding:0;" title="Guardar">💾</button>
+        <button onclick="showConfirmDeleteAnnotation()" style="background:transparent;border:none;cursor:pointer;font-size:22px;padding:0;opacity:.7;" title="Eliminar">🗑️</button>
+      </div>
+    </div>
+    <div class="ann-add-row" style="margin-top:0;">
+      <textarea id="ann-edit-input" placeholder="Escribe una anotación..."></textarea>
+    </div>
+    <div class="modal-actions" style="margin-top:12px;justify-content:flex-end;">
+      <button class="btn-modal-cancel" onclick="hideAnnEditModal()">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal-overlay hidden" id="editItemModal">
+  <div class="modal-sheet">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;">
+      <h3 style="margin:0;font-family:'Iowan Old Style','Palatino Linotype',Georgia,serif;font-size:18px;color:var(--ink);">✏️ Editar actividad</h3>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <button data-action="confirm-delete-item" style="background:transparent;border:none;cursor:pointer;font-size:22px;padding:0;opacity:.7;" title="Eliminar actividad">🗑️</button>
+        <label style="display:flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;color:var(--ink-soft);cursor:pointer;">
+        <input type="checkbox" id="ei-relevant" checked style="width:16px;height:16px;accent-color:var(--teal);cursor:pointer;">
+        Relevante
+      </label>
+      </div>
+    </div>
+    <div class="modal-field"><label>Hora</label><input type="time" id="ei-time"></div>
+    <div class="modal-field"><label>Fecha</label><input type="date" id="ei-date"></div>
+    <div class="modal-field"><label>Icono</label><input type="text" id="ei-icon" placeholder="ej. 🍽️" maxlength="4"></div>
+    <div class="modal-field"><label>Título</label><input type="text" id="ei-title" placeholder="Nombre de la actividad"></div>
+    <div class="modal-field"><label>Ciudad / Pueblo</label><input type="text" id="ei-city" placeholder="ej. Cartagena"></div>
+    <div class="modal-field"><label>Lugar</label><div style="display:flex;gap:6px;"><input type="text" id="ei-place" placeholder="Dirección o descripción" style="flex:1"><button type="button" onclick="openMaps('ei-place')" style="padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--cream);cursor:pointer;font-size:15px;flex-shrink:0;">🔍</button></div></div>
+    <div class="modal-field"><label>Teléfono</label><input type="tel" id="ei-phone" placeholder="+34 000 000 000"></div>
+    <div class="modal-field"><label>Móvil</label><input type="tel" id="ei-mobile" placeholder="+34 600 000 000"></div>
+    <div class="modal-field"><label>Web</label><input type="url" id="ei-web" placeholder="https://..."></div>
+    <div class="modal-field"><label>🎟️ Entradas</label><input type="url" id="ei-ticket" placeholder="URL de la entrada o reserva..."></div>
+    <div class="modal-actions">
+      <button class="btn-modal-cancel" onclick="hideEditItemModal()">Cancelar</button>
+      <button class="btn-modal-save" onclick="saveEditItem()">Guardar</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay hidden" id="addItemModal">
+  <div class="modal-sheet">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;">
+      <h3 style="margin:0;font-family:'Iowan Old Style','Palatino Linotype',Georgia,serif;font-size:18px;color:var(--ink);">+ Nueva actividad</h3>
+      <label style="display:flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;color:var(--ink-soft);cursor:pointer;">
+        <input type="checkbox" id="mi-relevant" checked style="width:16px;height:16px;accent-color:var(--teal);cursor:pointer;">
+        Relevante
+      </label>
+    </div>
+    <div class="modal-field"><label>Hora</label><input type="time" id="mi-time"></div>
+    <div class="modal-field"><label>Icono</label><input type="text" id="mi-icon" placeholder="ej. 🍽️" maxlength="4"></div>
+    <div class="modal-field"><label>Título</label><input type="text" id="mi-title" placeholder="Nombre de la actividad"></div>
+    <div class="modal-field"><label>Ciudad / Pueblo</label><input type="text" id="mi-city" placeholder="ej. Cartagena"></div>
+    <div class="modal-field"><label>Lugar</label><div style="display:flex;gap:6px;"><input type="text" id="mi-place" placeholder="Dirección o descripción" style="flex:1"><button type="button" onclick="openMaps('mi-place')" style="padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--cream);cursor:pointer;font-size:15px;flex-shrink:0;">🔍</button></div></div>
+    <div class="modal-field"><label>Teléfono</label><input type="tel" id="mi-phone" placeholder="+34 000 000 000"></div>
+    <div class="modal-field"><label>Web</label><input type="url" id="mi-web" placeholder="https://..."></div>
+    <div class="modal-field"><label>🎟️ Entradas</label><input type="url" id="mi-ticket" placeholder="URL de la entrada o reserva..."></div>
+    <div class="modal-actions">
+      <button class="btn-modal-cancel" onclick="hideAddItemModal()">Cancelar</button>
+      <button class="btn-modal-save" onclick="saveNewItem()">Añadir</button>
+    </div>
+  </div>
+</div>
+
+<button class="btn-top" id="btnTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<nav class="daynav" id="daynav"></nav>
+
+<div class="ribbon"><div class="ribbon-track" id="ribbonTrack"></div></div>
+
+<div class="wrap">
+  <main id="app"></main>
+  <div id="globalTasks" class="tasks-global"></div>
+  <div id="summaryAnchor"></div>
+  <footer>
+    <div class="foot-route" id="footRoute"></div>
+  </footer>
+</div>
+
+<script>
+const ACCENTS={terracotta:'#BC5B39',gold:'#C9922E',ochre:'#8C6A2E',sage:'#54684A',teal:'#2E7D74',navy:'#2C3E6B',wine:'#7B2D42',slate:'#4A5568',forest:'#2D5A27',coral:'#C4502A'};
+let TRAVELERS=["Deisson", "Rubí", "Héctor", "Ander", "Nahia", "Jeffer", "María"];
+const WORKER_URL='https://magictrip-api.deisson-sanchez.workers.dev';
+const API_KEY='magictrip2024';
+
+// Configuración del viaje (origen/destino configurables)
+const tripConfig={"origin": "Castellón", "destination": "Castellón"};
+const ribbonStops=[
+  {name:'Castellón', when:'21 jul · salida', dt:[2026,6,21,8,0]},
+  {name:'Cartagena',  when:'21–22 jul',       dt:[2026,6,21,12,0]},
+  {name:'Cabo de Palos', when:'22 jul · día', dt:[2026,6,22,13,30]},
+  {name:'Murcia',    when:'22–24 jul',        dt:[2026,6,22,23,45]},
+  {name:'Castellón', when:'24 jul · vuelta',  dt:[2026,6,24,18,0]}
+];
+
+function buildRibbonStops(){
+  // Origen
+  const stops=[{name:tripConfig.origin, when:'Salida'}];
+  // Ciudades únicas extraídas de las actividades en orden
+  const seen=new Set([tripConfig.origin.toLowerCase()]);
+  const allItems=trip.flatMap(d=>d.items);
+  allItems.forEach(it=>{
+    if(it.city&&it.city.trim()){
+      const key=it.city.trim().toLowerCase();
+      if(!seen.has(key)){
+        seen.add(key);
+        // Buscar la fecha de la primera actividad en esa ciudad
+        let dateStr='';
+        if(it.dt){
+          const d=toDate(it.dt);
+          dateStr=d.getDate()+'/'+(d.getMonth()+1<10?'0':'')+(d.getMonth()+1);
+        }
+        stops.push({name:it.city.trim(),when:dateStr});
+      }
+    }
+  });
+  // Destino
+  const dest=tripConfig.destination.trim();
+  if(dest&&dest.toLowerCase()!==stops[stops.length-1].name.toLowerCase()){
+    // Fecha del último día del viaje
+    let dateStr='';
+    const lastDay=trip[trip.length-1];
+    if(lastDay&&lastDay.items&&lastDay.items[0]&&lastDay.items[0].dt){
+      const d=toDate(lastDay.items[0].dt);
+      dateStr=d.getDate()+'/'+(d.getMonth()+1<10?'0':'')+(d.getMonth()+1);
+    }
+    stops.push({name:dest,when:'Vuelta'+(dateStr?' '+dateStr:'')});
+  }
+  return stops;
+}
+
+function gmaps(q){return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(q)}`;}
+
+const trip=[{"id": "d1", "dow": "Martes", "date": "21 de julio", "dayNum": 21, "accent": "gold", "theme": "Cartagena", "items": [{"id": "i01", "t": "08:00", "i": "🚗", "h": "Salida desde Castellón", "dt": [2026, 6, 21, 8, 0], "relevant": true, "city": "Castellón", "p": "Casa"}, {"id": "i1784620457397", "t": "09:53", "i": "📌", "h": "Desayuno", "relevant": true, "p": "El Paraíso", "gp": "El Paraíso"}, {"id": "i05", "t": "14:30", "i": "🔑", "h": "Check-in", "p": "Hotel Manolo", "gp": "Hotel Manolo", "dt": [2026, 6, 21, 15, 0], "city": "Cartagena", "relevant": true, "mob": "633 426 673"}, {"id": "i04", "t": "15:00", "i": "🍽️", "h": "Comida", "p": "Hotel Manolo", "dt": [2026, 6, 21, 13, 0], "gp": "Hotel Manolo", "relevant": true, "city": "Cartagena", "ph": "968510011"}, {"id": "i07", "t": "16:30", "i": "🏰", "h": "Ascensor Panorámico", "p": "Ascensor panorámico, Cartagena", "gp": "Ascensor panorámico, Cartagena", "wl": "puertodeculturas.cartagena.es", "dt": [2026, 6, 21, 18, 30], "ticket": "https://puertodeculturas.cartagena.es/compra_entradas_nuevo_OK.asp?idioma=1&localizador=98916&ctrl=9a8063a746775df86a0cacfeb9590b875d215009", "relevant": true}, {"id": "i1784640445640", "t": "16:45", "i": "📌", "h": "Castillo de la Concepción", "relevant": true, "p": "Castillo de la Concepción", "city": "Cartagena", "gp": "Castillo de la Concepción", "ticket": "https://puertodeculturas.cartagena.es/compra_entradas_nuevo_OK.asp?idioma=1&localizador=98916&ctrl=9a8063a746775df86a0cacfeb9590b875d215009"}, {"id": "i03", "t": "19:30", "i": "🚢", "h": "Barco Turístico de Cartagena", "p": "P.º Alfonso XII, Cartagena", "gp": "P.º Alfonso XII, Cartagena", "w": "https://puertodeculturas.cartagena.es/ficha_barco.asp", "wl": "puertodeculturas.cartagena.es", "ph": "+34 968 50 00 93", "dt": [2026, 6, 21, 12, 0], "relevant": true, "ticket": "https://puertodeculturas.cartagena.es/compra_entradas_nuevo_OK.asp?idioma=1&localizador=98916&ctrl=9a8063a746775df86a0cacfeb9590b875d215009", "city": "Cartagena"}, {"id": "i08", "t": "19:45", "i": "☕", "h": "Tomar café asiático", "p": "Restaurante cuarentena y tres 43", "gp": "Restaurante cuarentena y tres 43", "w": "https://cuarentaytres.com/", "wl": "eszencia.eatbu.com", "dt": [2026, 6, 21, 19, 45], "city": "Cartagena", "relevant": true}, {"id": "i1783985399740", "t": "20:30", "i": "🚶", "h": "Puerto", "p": "Puerto de Cartagena", "relevant": true, "city": "Cartagena", "dt": [2026, 6, 21, 23, 0], "gp": "Puerto de Cartagena"}, {"id": "i1783985459019", "t": "20:45", "i": "🚶", "h": "Plaza del ayuntamiento", "p": "Plaza del ayuntamiento, Cartagena", "relevant": true, "city": "Cartagena", "dt": [2026, 6, 21, 11, 30], "gp": "Plaza del ayuntamiento, Cartagena"}, {"id": "i1783985498765", "t": "21:00", "i": "🚶", "h": "Calle mayor", "p": "Calle mayor Cartagena", "relevant": true, "city": "Cartagena", "dt": [2026, 6, 21, 11, 30], "gp": "Calle mayor Cartagena"}, {"id": "i10", "t": "21:30", "i": "🍽️", "h": "Cena", "p": "La Bodeguilla", "dt": [2026, 6, 21, 21, 30], "city": "Cartagena", "gp": "La Bodeguilla", "relevant": true}, {"id": "i11", "t": "23:00", "i": "🛏️", "h": "Descanso", "p": "Hotel Manolo, Cartagena", "gp": "Hotel Manolo Av. Juan Carlos I 7 Cartagena", "dt": [2026, 6, 21, 23, 0]}], "collapsed": false, "customColor": "#c9922e"}, {"id": "d2", "dow": "Miércoles", "date": "22 de julio", "dayNum": 22, "accent": "gold", "theme": "Historia en Cartagena, snorkel y atardecer en Cabo de Palos", "stay": "🛏️ Traslado a Murcia esta noche · Catalonia Conde de Floridablanca", "items": [{"id": "i1784672750960", "t": "08:00", "i": "📌", "h": "Desayuno", "relevant": true, "p": "Hotel Manolo", "city": "Cartagena"}, {"id": "i13", "t": "09:10", "i": "🏨", "h": "Checkout · Hotel Manolo", "p": "Av. Juan Carlos I, 7, Cartagena", "gp": "Av. Juan Carlos I, 7, Cartagena", "ph": "+34 968 33 00 60", "dt": [2026, 6, 22, 12, 0], "relevant": true}, {"id": "i1784672867821", "t": "09:45", "i": "📌", "h": "Parking", "relevant": true, "p": "Aparcamiento Público del Puerto", "city": "Cartagena", "gp": "Aparcamiento Público del Puerto"}, {"id": "i12", "t": "10:00", "i": "🚶", "h": "Free Tour por Cartagena (GuruWalk)", "p": "Pl. Héroes de Cavite, 7, Cartagena", "gp": "Pl. Héroes de Cavite, 7, Cartagena", "w": "https://www.guruwalk.com/walks/38123-free-tour-cartagena-historical-base-of-spain", "wl": "guruwalk.com", "dt": [2026, 6, 22, 10, 0], "relevant": true}, {"id": "i1784719272510", "t": "12:30", "i": "🍦", "h": "Pausa de hidratación", "relevant": true, "p": "Rivareno", "city": "Cartagena"}, {"id": "i1784640686964", "t": "13:00", "i": "🏛️", "h": "Museo del teatro romano", "relevant": true, "p": "Museo del teatro romano", "city": "Cartagena", "gp": "Museo del teatro romano", "ticket": "https://puertodeculturas.cartagena.es/compra_entradas_nuevo_OK.asp?idioma=1&localizador=98916&ctrl=9a8063a746775df86a0cacfeb9590b875d215009", "date": "2026-07-22"}, {"id": "i06", "t": "13:30", "i": "🎭", "h": "Teatro romano de Cartagena", "p": "Teatro romano de Cartagena", "gp": "Teatro romano de Cartagena", "wl": "puertodeculturas.cartagena.es", "dt": [2026, 6, 21, 16, 30], "relevant": true, "city": "Cartagena", "ticket": "https://puertodeculturas.cartagena.es/compra_entradas_nuevo_OK.asp?idioma=1&localizador=98916&ctrl=9a8063a746775df86a0cacfeb9590b875d215009", "date": "2026-07-22"}, {"id": "i14", "t": "14:15", "i": "🚗", "h": "Salida hacia Cabo de Palos", "dt": [2026, 6, 22, 12, 30], "relevant": true, "date": "2026-07-22"}, {"id": "i15", "t": "15:30", "i": "🍽️", "h": "Comida", "p": "Bocana de Palos Restaurant", "gp": "Bocana de Palos Restaurant", "w": "https://bocanadepalos.com/carta.html", "wl": "turismoregiondemurcia.es", "ph": "+34 968 56 36 21", "dt": [2026, 6, 22, 13, 30], "relevant": true, "ticket": "https://bocanadepalos.myrestoo.net/es/reservar/confirmacion/369959ef880e4da1ba9570a064a132d7", "date": "2026-07-22"}, {"id": "i16", "t": "17:30", "i": "🐠", "h": "Snorkel", "p": "Cala Fría, Cabo de Palos", "gp": "Cala Fría, Cabo de Palos", "dt": [2026, 6, 22, 16, 0], "relevant": true, "date": "2026-07-22"}, {"id": "i20", "t": "20:00", "i": "🚗", "h": "Salida hacia Murcia", "dt": [2026, 6, 22, 23, 0], "relevant": true, "date": "2026-07-22"}, {"id": "i21", "t": "21:00", "i": "🏨", "h": "Check-in", "p": "Occidental Murcia Agalia", "gp": "Occidental Murcia Agalia", "wl": "cataloniahotels.com", "dt": [2026, 6, 22, 23, 45], "city": "Murcia", "relevant": true, "ticket": "https://drive.google.com/file/d/1eIQSX9SuT8Hb2gSpU3KBde-XxJUSXHEl/view?usp=drivesdk", "date": "2026-07-22"}, {"id": "i19", "t": "21:30", "i": "🍽️", "h": "Cena", "dt": [2026, 6, 22, 21, 30], "city": "Murcia", "relevant": true, "date": "2026-07-22", "p": "Tapa&Brasa gastrobar", "gp": "Tapa&Brasa gastrobar", "mob": "661396963"}], "collapsed": false, "customColor": "#649e4f"}, {"id": "d3", "dow": "Jueves", "date": "23 de julio", "dayNum": 23, "accent": "ochre", "theme": "Murcia", "items": [{"id": "i1784751806666", "t": "09:30", "i": "📌", "h": "Desayuno", "relevant": true, "p": "Aroma Café", "city": "Murcia", "gp": "Aroma Café", "date": "2026-07-23"}, {"id": "i1784699538117", "t": "11:00", "i": "🚶‍♂", "h": "Freetour", "relevant": true, "p": "Ayuntamiento de Murcia", "city": "Murcia", "ticket": "https://www.guruwalk.com/es/walks/58462-murcia-historica-la-perla-del-segura-con-guia-oficial-de-turismo-solo-en-espanol", "gp": "Ayuntamiento de Murcia", "date": "2026-07-23"}, {"id": "i23", "t": "13:30", "i": "🍽️", "h": "Vermú y Comida", "p": "Mercado de correos", "gp": "Mercado de correos", "dt": [2026, 6, 23, 13, 30], "city": "Murcia", "relevant": true, "date": "2026-07-23"}, {"id": "i22", "t": "16:30", "i": "⛪", "h": "Catedral de Murcia", "p": "Catedral de Murcia", "gp": "Catedral de Murcia", "w": "https://catedralmurcia.org/", "wl": "catedralmurcia.org", "dt": [2026, 6, 23, 9, 30], "ticket": "https://drive.google.com/file/d/1rHOXIvIe7gPnl2Nkqh2yCTNiMq5D2H11/view?usp=drivesdk", "relevant": true, "date": "2026-07-23"}, {"id": "i1784702878135", "t": "17:30", "i": "🎰", "h": "Real casino de Murcia", "relevant": true, "p": "Real casino de Murcia", "city": "Murcia", "gp": "Real casino de Murcia", "date": "2026-07-23"}, {"id": "i24", "t": "18:00", "i": "🌄", "h": "Santuario de Ntra. Sra. de la Fuensanta", "p": "Santuario de Nuestra Señora de la Fuensanta", "gp": "Santuario de Nuestra Señora de la Fuensanta", "w": "https://www.turismodemurcia.es/es/santuario-de-la-fuensanta", "wl": "turismodemurcia.es", "dt": [2026, 6, 23, 17, 0], "relevant": true, "date": "2026-07-23"}, {"id": "i1784731085470", "t": "19:00", "i": "🏊‍♂", "h": "Piscina", "relevant": true, "p": "Occidental Murcia Agalia", "city": "Cartagena"}, {"id": "i25", "t": "21:00", "i": "🍽️", "h": "Cena y paseo nocturno", "p": "Pl. de las Flores y Pl. Santa Catalina, Murcia", "gp": "Plaza de las Flores Murcia", "dt": [2026, 6, 23, 21, 0]}], "collapsed": false, "customColor": "#8c6a2e"}, {"id": "d4", "dow": "Viernes", "date": "24 de julio", "dayNum": 24, "accent": "sage", "theme": "Mañana relajada y regreso", "items": [{"id": "i1784730430599", "t": "09:00", "i": "🏊‍♂", "h": "Piscina", "relevant": true, "city": "Murcia", "p": "Occidental Murcia Agalia", "gp": "Occidental Murcia Agalia", "date": "2026-07-24"}, {"id": "i27", "t": "10:00", "i": "🛍️", "h": "Mercado de Verónicas + paseo por el Río Segura", "p": "C. Plano de San Francisco, 10, Murcia", "gp": "Mercado de Verónicas Murcia", "w": "https://www.turismodemurcia.es/es/mercado-de-veronicas", "wl": "turismodemurcia.es", "ph": "+34 617 62 27 27", "dt": [2026, 6, 24, 10, 0]}, {"id": "i1784729981035", "t": "14:00", "i": "📌", "h": "Comida", "relevant": true, "p": "Bamboo restaurante", "city": "Murcia", "gp": "Bamboo restaurante", "mob": "622291376", "date": "2026-07-24"}, {"id": "i1784730353346", "t": "16:00", "i": "💆‍♂", "h": "Descansar antes del viaje", "relevant": true, "p": "Jardín de Floridablanca", "city": "Murcia"}, {"id": "i29", "t": "17:00", "i": "🚗", "h": "Regreso hacia Castellón", "dt": [2026, 6, 24, 15, 30], "relevant": true, "date": "2026-07-24"}], "collapsed": false}];
+
+const expenses={"i01": [], "i03": [], "i21": [{"id": "t1005", "concept": "Hotel Murcia", "amount": 527.02, "payer": "Jeffer", "participants": ["Deisson", "Rubí", "Héctor", "Ander", "Nahia", "Jeffer", "María"], "annotations": [{"id": "t2", "text": "Reservado por Jeffer"}]}], "i05": [{"id": "t1006", "concept": "Hotel Cartagena", "amount": 135, "payer": "Deisson", "participants": ["Deisson", "Rubí", "Héctor", "Ander", "Nahia", "Jeffer", "María"]}], "i1784620457397": [{"id": "t1007", "concept": "Gasto", "amount": 44, "payer": "Deisson", "participants": ["Deisson", "Rubí", "Héctor", "Ander", "Nahia", "Jeffer", "María"], "date": "2026-07-21"}], "i04": [{"id": "t1008", "concept": "Gasto", "amount": 100, "payer": "Rubí", "participants": ["Deisson", "Rubí", "Héctor", "Ander", "Nahia", "Jeffer", "María"], "date": "2026-07-21"}], "i10": [{"id": "t1009", "concept": "Gasto", "amount": 130.7, "payer": "Jeffer", "participants": ["Deisson", "Rubí", "Héctor", "Ander", "Nahia", "Jeffer", "María"], "date": "2026-07-21"}], "i22": [{"id": "t1010", "concept": "Gasto", "amount": 40, "payer": "Deisson", "participants": ["Deisson", "Rubí", "Héctor", "Ander", "Nahia", "Jeffer", "María"], "date": "2026-07-22"}], "i1784672750960": [{"id": "t1011", "concept": "Gasto", "amount": 22.5, "payer": "Deisson", "participants": ["Deisson", "Rubí", "Héctor", "Ander", "Nahia"], "date": "2026-07-22"}], "i12": [{"id": "t1012", "concept": "Gasto", "amount": 100, "payer": "Jeffer", "participants": ["Deisson", "Rubí", "Héctor", "Ander", "Nahia", "Jeffer", "María"], "date": "2026-07-22"}], "i1784719272510": [{"id": "t1013", "concept": "Gasto", "amount": 20.3, "payer": "Ander", "participants": ["Deisson", "Rubí", "Héctor", "Ander", "Nahia", "Jeffer", "María"]}], "i1784672867821": [{"id": "t1014", "concept": "Gasto", "amount": 15.8, "payer": "Jeffer", "participants": ["Deisson", "Rubí", "Héctor", "Ander", "Nahia", "Jeffer", "María"]}], "i15": [{"id": "t1015", "concept": "Gasto", "amount": 170.4, "payer": "Ander", "participants": ["Deisson", "Rubí", "Héctor", "Ander", "Nahia", "Jeffer", "María"], "date": "2026-07-22"}, {"id": "t1016", "concept": "Propina", "amount": 5, "payer": "Jeffer", "participants": ["Deisson", "Rubí", "Héctor", "Ander", "Nahia", "Jeffer", "María"], "date": "2026-07-22"}], "i19": [{"id": "t1017", "concept": "Gasto", "amount": 138.1, "payer": "Jeffer", "participants": ["Deisson", "Rubí", "Héctor", "Ander", "Nahia", "Jeffer", "María"], "date": "2026-07-23"}], "i1784699538117": [{"id": "t1018", "concept": "Gasto", "amount": 100, "payer": "Rubí", "participants": ["Deisson", "Rubí", "Héctor", "Ander", "Nahia", "Jeffer", "María"], "date": "2026-07-23"}]};   // { itemId: [{id, concept, amount, payer, participants}] }
+const freeExpenses=[{"id": "t2", "concept": "Pack Cartagena", "amount": 144, "payer": "Deisson", "participants": ["Deisson", "Rubí", "Héctor", "Ander", "Nahia", "Jeffer", "María"]}, {"id": "t1", "concept": "Hinchar ruedas", "amount": 1, "payer": "Deisson", "participants": ["Deisson", "Rubí", "Héctor", "Ander", "Nahia", "Jeffer", "María"], "date": "2026-07-20"}, {"id": "t1001", "concept": "Aguas", "amount": 13.25, "payer": "Deisson", "participants": ["Deisson", "Rubí", "Héctor", "Ander", "Nahia", "Jeffer", "María"], "date": "2026-07-21"}, {"id": "t6", "concept": "Aguas", "amount": 4, "payer": "Rubí", "participants": ["Deisson", "Rubí", "Héctor", "Ander", "Nahia"], "date": "2026-07-21"}, {"id": "t3", "concept": "Agua", "amount": 7.5, "payer": "Deisson", "participants": ["Deisson", "Rubí", "Héctor", "Ander", "Nahia"], "date": "2026-07-22"}, {"id": "t4", "concept": "Agua", "amount": 1.6, "payer": "Deisson", "participants": ["Deisson", "Rubí", "Héctor", "Ander", "Nahia", "Jeffer", "María"], "date": "2026-07-21"}, {"id": "t1002", "concept": "Uber", "amount": 11.98, "payer": "Deisson", "participants": ["Deisson", "Rubí", "Héctor", "Ander", "Nahia", "Jeffer", "María"], "date": "2026-07-23"}, {"id": "t1003", "concept": "Uber", "amount": 9.54, "payer": "Deisson", "participants": ["Deisson", "Rubí", "Héctor", "Ander", "Nahia", "Jeffer", "María"], "date": "2026-07-23"}, {"id": "t1004", "concept": "Agua", "amount": 7, "payer": "Deisson", "participants": ["Deisson", "Rubí", "Héctor", "Ander", "Nahia", "Jeffer", "María"], "date": "2026-07-23"}]; // [{id, concept, amount, payer, participants}]
+const payments=[{"id": "t3", "from": "Deisson", "to": "Jeffer", "amount": 75.29, "concept": "Hotel Murcia"}, {"id": "t4", "from": "Rubí", "to": "Jeffer", "amount": 75.29, "concept": "Hotel Murcia"}, {"id": "t5", "from": "Héctor", "to": "Jeffer", "amount": 75.29, "concept": "Hotel Murcia"}, {"id": "t1", "from": "Ander", "to": "Jeffer", "amount": 75.29, "concept": "Hotel Murcia"}, {"id": "t2", "from": "Nahia", "to": "Jeffer", "amount": 75.29, "concept": "Hotel Murcia"}, {"id": "t3", "from": "María", "to": "Jeffer", "amount": 75.29, "concept": "Hotel Murcia"}, {"id": "t1", "from": "Jeffer", "to": "Jeffer", "amount": 75.29, "concept": "Pago hotel Murcia"}]; // [{id, from, to, amount, concept}]
+const itemTasks={"i05": [{"id": "t3", "text": "Pendiente de pago, 135€", "done": true}], "i04": [], "i17": [], "i19": [], "i15": [{"id": "t1", "text": "Llamar para cambiar la reserva, ahora la tenemos a las 14:00", "done": true}]};
+const itemAnnotations={"i1783843807548": [{"id": "t1", "text": "Pararemos donde mejor nos venga, sin salirnos del trayecto"}], "i05": [{"id": "t2", "text": "Booking"}, {"id": "t2", "text": "Pagado el 16/07 en Revolut"}], "i21": [{"id": "t4", "text": "Reservado por Jeffer"}], "i04": [{"id": "t5", "text": "Reservado para 7, sobre las 15:00"}], "i08": [{"id": "t1", "text": "Es un café con licor 43, muy típico de Cartagena"}], "i13": [], "i12": [{"id": "t2", "text": "Duración: 2h 15 min"}], "i14": [{"id": "t3", "text": "Hay unos 35 min desde Cartagena"}], "i15": [{"id": "t4", "text": "Reserva hecha por su web"}, {"id": "t1", "text": "Aquí tenemos que probar el caldero"}], "i17": [{"id": "t4", "text": "He preguntado por WhatsApp si es posible reservar con una niña de 11 años, esperando respuesta"}], "i19": [{"id": "t2", "text": "Reservado por WhatsApp"}], "i1784699538117": [{"id": "t1", "text": "Duración: 2 horas"}], "i1784702878135": [{"id": "t3", "text": "No hay enlace para comprar las entradas, supongo que se compra allí"}], "i22": [{"id": "t4", "text": "Entradas compradas en la web de la catedral"}], "i24": [{"id": "t5", "text": "Horario: de 16h a 19h"}], "i1784729981035": [{"id": "t2", "text": "Reservado por WhatsApp"}], "i16": [{"id": "t1", "text": "Una basura"}]};
+const globalTasksList=[];
+let taskCounter=0;
+
+function toDate(dt){if(!dt||!dt.length) return new Date(0);return new Date(dt[0],dt[1],dt[2],dt[3]||0,dt[4]||0);}
+function sameDate(a,b){return a.getFullYear()===b.getFullYear()&&a.getMonth()===b.getMonth()&&a.getDate()===b.getDate();}
+function uid(){return 't'+(++taskCounter);}
+function escHtml(t){return t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+function setSyncStatus(msg,color){
+  color=color||'var(--ink-soft)';
+  var el=document.getElementById('sync-status');
+  if(el){el.textContent=msg;el.style.color=color;}
+}
+
+function toggleBlock(headerId){
+  var hdr=document.getElementById(headerId);
+  var body=document.getElementById(headerId+'-body');
+  if(!hdr||!body) return;
+  hdr.classList.toggle('collapsed');
+  body.classList.toggle('hidden');
+}
+
+function cblock(id,title,bodyHTML,visible){
+  if(visible===undefined) visible=true;
+  return '<div class="cblock" id="'+id+'" style="display:'+(visible?'block':'none')+'">'
+    +'<div class="cblock-header" id="'+id+'-hdr" onclick="toggleBlock(\''+id+'-hdr\')">'
+    +'<span class="cblock-title">'+title+'</span>'
+    +'<span class="cblock-arrow">▼</span></div>'
+    +'<div class="cblock-body" id="'+id+'-hdr-body">'+bodyHTML+'</div></div>';
+}
+
+function gmaps(q){return 'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(q);}
+function openMaps(inputId){
+  var val=document.getElementById(inputId).value.trim();
+  if(val) window.open(gmaps(val),'_blank');
+}
+
+function daySummaryHTML(day){
+  var relevant=day.items.filter(function(it){return it.relevant!==false;});
+  if(!relevant.length) return '';
+  return '<div class="day-summary">'+relevant.map(function(it){return '<span class="day-summary-item">'+it.i+' '+it.h+'</span>';}).join('')+'</div>';
+}
+
+function itemHTML(it){
+  var meta=[];
+  if(it.p){
+    var addr=it.gp?'<a href="'+gmaps(it.gp)+'" target="_blank" rel="noopener">'+it.p+'</a>':it.p;
+    meta.push('<span>📍 '+addr+'</span>');
+  }
+  if(it.ph) meta.push('<span>📞 <a href="tel:'+it.ph+'">'+it.ph+'</a></span>');
+  if(it.mob){
+    var mobClean=it.mob.replace(/\D/g,'');
+    meta.push('<span>📱 <a href="tel:'+it.mob+'">'+it.mob+'</a> <a href="https://wa.me/'+mobClean+'" target="_blank" rel="noopener" style="margin-left:6px;vertical-align:middle;text-decoration:none;"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="18" height="18" style="vertical-align:middle;"></a></span>');
+  }
+  if(it.w) meta.push('<span>🌐 <a href="'+it.w+'" target="_blank" rel="noopener">'+(it.wl||it.w)+'</a></span>');
+  if(it.ticket) meta.push('<span>🎟️ <a href="'+it.ticket+'" target="_blank" rel="noopener" style="color:var(--teal);font-weight:600;">Ver entrada</a></span>');
+  var badges=[];
+  if(it.st) badges.push('<span class="badge '+(it.st.c==='confirmed'?'confirmed':'included')+'">'+(it.st.c==='confirmed'?'✅':'🎫')+' '+it.st.l+'</span>');
+  if(it.pr) badges.push('<span class="badge price">💶 '+it.pr+'</span>');
+  var hasExp=!!(expenses[it.id]&&expenses[it.id].length);
+  var hasTasks=!!(itemTasks[it.id]&&itemTasks[it.id].length);
+  var hasAnns=!!(itemAnnotations[it.id]&&itemAnnotations[it.id].length);
+  var annsInline='';
+  if(hasAnns){
+    var annsArr=itemAnnotations[it.id]||[];
+    annsInline='<div class="ann-inline" id="ann-inline-'+it.id+'"><span class="ann-inline-title">Anotaciones</span>'+annsArr.map(function(a){return '<span class="ann-inline-item" onclick="showAnnModal(\''+it.id+'\')">'+escHtml(a.text)+'</span>';}).join('')+'</div>';
+  } else {
+    annsInline='<div class="ann-inline" id="ann-inline-'+it.id+'" style="display:none"></div>';
+  }
+  var tasksInline='';
+  if(hasTasks){
+    var tasksArr=itemTasks[it.id]||[];
+    tasksInline='<div class="task-inline" id="task-inline-'+it.id+'"><span class="task-inline-title">Tareas</span>'+tasksArr.map(function(t){
+      return '<span class="task-inline-item'+(t.done?' done':'')+'" id="task-pill-'+t.id+'" data-action="open-task-modal" data-itemid="'+it.id+'">'+escHtml(t.text)+'</span>';
+    }).join('')+'</div>';
+  } else {
+    tasksInline='<div class="task-inline" id="task-inline-'+it.id+'" style="display:none"></div>';
+  }
+  return '<div class="item" id="item-'+it.id+'">'
+    +'<div class="time-col"><span class="time-tag">'+it.t+'</span></div>'
+    +'<div class="node-col"><div class="node">'+it.i+'</div><div class="node-line"></div></div>'
+    +'<div class="content">'
+    +'<div style="display:flex;align-items:flex-start;justify-content:space-between;gap:6px;">'
+    +'<div class="title" onclick="showEditItemModal(\''+it.id+'\')" style="cursor:pointer;">'+it.h+'</div>'
+    +'<div style="display:flex;gap:4px;">'
+    +'<button class="btn-ann-icon '+(hasExp?'has-anns':'')+'" id="btn-exp-icon-'+it.id+'" onclick="showExpenseModal(\''+it.id+'\')" title="Gasto">💶</button>'
+    +'<button class="btn-ann-icon '+(hasTasks?'has-anns':'')+'" id="btn-task-icon-'+it.id+'" onclick="showTaskModal(\''+it.id+'\')" title="Tareas">📌</button>'
+    +'<button class="btn-ann-icon '+(hasAnns?'has-anns':'')+'" id="btn-ann-icon-'+it.id+'" onclick="showAnnModal(\''+it.id+'\')" title="Anotaciones">📝</button>'
+    +'</div></div>'
+    +(meta.length?'<div class="meta-row">'+meta.join('')+'</div>':'')
+    +(badges.length?'<div class="badges">'+badges.join('')+'</div>':'')
+    +tasksInline+annsInline
+    +(hasExp?'<div id="exp-indicator-'+it.id+'" style="margin-top:6px;font-size:12px;color:var(--price-fg);font-weight:600;">💶 Tiene gastos asociados</div>':'<div id="exp-indicator-'+it.id+'" style="display:none;margin-top:6px;font-size:12px;color:var(--price-fg);font-weight:600;">💶 Tiene gastos asociados</div>')
+    +'</div></div>';
+}
+
+function dayHTML(day){
+  var hex=day.customColor||ACCENTS[day.accent]||'#BC5B39';
+  var collapsed=day.collapsed||false;
+  return '<section class="day" id="'+day.id+'" style="--accent:'+hex+'">'
+    +'<div class="day-header" style="--accent:'+hex+';background:'+hex+';position:relative;padding-bottom:36px;">'
+    +'<div class="day-header-left" style="flex:1;min-width:0;">'
+    +'<div class="d-label">'+day.dow+' · '+day.date+'</div>'
+    +'<h2>'+day.theme+'</h2>'
+    +(collapsed?daySummaryHTML(day):'')
+    +'</div>'
+    +'<div class="day-header-actions">'
+    +'<button class="btn-add-item" data-action="add-item" data-day="'+day.id+'" title="Añadir actividad">+</button>'
+    +'<button class="btn-delete-day" data-action="edit-day" data-day="'+day.id+'" title="Editar día" style="font-size:13px;">✏️</button>'
+    +'<button class="btn-delete-day" data-action="delete-day" data-day="'+day.id+'" title="Eliminar día">🗑️</button>'
+    +'</div>'
+    +'<button class="btn-collapse '+(collapsed?'collapsed':'')+'" data-action="collapse-day" data-day="'+day.id+'" title="'+(collapsed?'Expandir':'Colapsar')+'" style="position:absolute;bottom:10px;right:14px;">▼</button>'
+    +'</div>'
+    +'<div class="timeline" id="timeline-'+day.id+'" style="'+(collapsed?'display:none':'')+'">'
+    +day.items.map(itemHTML).join('')
+    +'</div></section>';
+}
+
+function restoreAll(){
+  Object.keys(expenses).forEach(function(id){
+    if(expenses[id]&&expenses[id].length) updateExpenseIcon(id);
+  });
+  Object.keys(itemTasks).forEach(function(id){
+    if(itemTasks[id]&&itemTasks[id].length) updateTaskInline(id);
+  });
+  Object.keys(itemAnnotations).forEach(function(id){
+    if(itemAnnotations[id]&&itemAnnotations[id].length) updateAnnInline(id);
+  });
+}
+
+
+function setSyncStatus(msg,color='var(--ink-soft)'){
+  const el=document.getElementById('sync-status');
+  if(el){el.textContent=msg;el.style.color=color;}
+}
+
+async function syncFromCloud(){
+  setSyncStatus('☁️ Cargando...');
+  try{
+    const res=await fetch(WORKER_URL,{headers:{'X-API-Key':API_KEY}});
+    if(!res.ok) throw new Error('Error '+res.status);
+    const data=await res.json();
+    if(data.expenses) Object.assign(expenses,data.expenses);
+    if(data.itemTasks) Object.assign(itemTasks,data.itemTasks);
+    if(data.itemAnnotations) Object.assign(itemAnnotations,data.itemAnnotations);
+    if(data.globalTasksList) globalTasksList.splice(0,globalTasksList.length,...(data.globalTasksList||[]));
+    if(data.freeExpenses) freeExpenses.splice(0,freeExpenses.length,...(data.freeExpenses||[]));
+    if(data.payments) payments.splice(0,payments.length,...(data.payments||[]));
+    if(data.travelers&&data.travelers.length) TRAVELERS.splice(0,TRAVELERS.length,...data.travelers);
+    if(data.tripConfig){tripConfig.origin=data.tripConfig.origin||tripConfig.origin;tripConfig.destination=data.tripConfig.destination||tripConfig.destination;}
+    // Restaurar trip completo desde la nube si existe
+    if(data.trip&&data.trip.length){
+      data.trip.forEach(function(day){
+        (day.items||[]).forEach(function(item){
+          delete item.st; delete item.pr; delete item.n;
+        });
+      });
+      trip.splice(0,trip.length,...data.trip);
+    }
+    document.getElementById('app').innerHTML=trip.map(dayHTML).join('');
+    restoreAll();
+    document.getElementById('globalTasks').innerHTML=globalTasksHTML();
+    renderNav();renderRibbon();updateFootRoute();renderSummary();updateNow();
+    setSyncStatus('✅ Datos cargados — '+new Date().toLocaleTimeString(),'var(--confirmed-fg)');
+  }catch(err){setSyncStatus('❌ Error al cargar: '+err.message,'#c0392b');}
+}
+
+async function syncToCloud(){
+  setSyncStatus('💾 Guardando...');
+  try{
+    const res=await fetch(WORKER_URL,{method:'PUT',headers:{'Content-Type':'application/json','X-API-Key':API_KEY},
+      body:JSON.stringify({expenses,itemTasks,itemAnnotations,globalTasksList,freeExpenses,payments,travelers:TRAVELERS,trip,tripConfig})});
+    if(!res.ok) throw new Error('Error '+res.status);
+    setSyncStatus('✅ Guardado — '+new Date().toLocaleTimeString(),'var(--confirmed-fg)');
+  }catch(err){setSyncStatus('❌ Error al guardar: '+err.message,'#c0392b');}
+}
+
+function toggleBlock(headerId){
+  const hdr=document.getElementById(headerId);
+  const body=document.getElementById(headerId+'-body');
+  if(!hdr||!body) return;
+  hdr.classList.toggle('collapsed');
+  body.classList.toggle('hidden');
+}
+
+// ---- Sistema de Gastos ----
+var _expItemId = null;      // item al que pertenece el gasto activo
+var _expIsFree = false;     // true = gasto libre
+var _expEditId = null;      // id del gasto que se está editando (null = nuevo)
+var _expFormAnns = [];      // anotaciones del formulario actual
+var _deleteExpItemId = null;
+var _deleteExpId = null;
+
+// --- Modal lista gastos actividad ---
+function showExpenseModal(itemId){
+  _expItemId = itemId;
+  _expIsFree = false;
+  renderExpenseModal();
+  document.getElementById('expenseModal').classList.remove('hidden');
+}
+function hideExpenseModal(){
+  document.getElementById('expenseModal').classList.add('hidden');
+  _expItemId = null;
+}
+function renderExpenseModal(){
+  var list = expenses[_expItemId] || [];
+  var body = document.getElementById('exp-list-body'); if(!body) return;
+  var html = '';
+  if(list.length){
+    list.forEach(function(e){
+      var anns = e.annotations || [];
+      html += '<div style="padding:8px 0;border-bottom:1px dashed var(--line);">';
+      html += '<div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px;">';
+      html += '<div style="flex:1;">';
+      html += '<div style="font-weight:700;font-size:13px;">'+escHtml(e.concept)+'</div>';
+      html += '<div style="font-size:12px;color:var(--ink-soft);">'+( e.date?e.date+' · ':'')+e.amount.toFixed(2)+' € · Pagó '+e.payer+' · '+e.participants.join(', ')+'</div>';
+      html += '<div style="font-size:12px;color:var(--price-fg);">Cada uno: '+(e.amount/e.participants.length).toFixed(2)+' €</div>';
+      if(anns.length){
+        html += '<div style="margin-top:4px;display:flex;flex-direction:column;gap:2px;">';
+        anns.forEach(function(a){ html += '<span style="font-size:11px;padding:2px 8px;border-radius:999px;background:var(--confirmed-bg);color:var(--confirmed-fg);align-self:flex-start;">'+escHtml(a.text)+'</span>'; });
+        html += '</div>';
+      }
+      html += '</div>';
+      html += '<div style="display:flex;gap:6px;flex-shrink:0;">';
+      html += '<button data-action="edit-expense" data-exp-id="'+e.id+'" style="background:transparent;border:none;cursor:pointer;font-size:15px;opacity:.6;">✏️</button>';
+      html += '<button data-action="delete-expense" data-item-id="'+_expItemId+'" data-exp-id="'+e.id+'" style="background:transparent;border:none;cursor:pointer;font-size:15px;opacity:.6;">🗑️</button>';
+      html += '</div></div></div>';
+    });
+  } else {
+    html = '<div style="font-size:13px;color:var(--ink-soft);font-style:italic;padding:8px 0;">Sin gastos todavía.</div>';
+  }
+  body.innerHTML = html;
+  updateExpenseIcon(_expItemId);
+}
+function updateExpenseIcon(itemId){
+  var hasExp=!!(expenses[itemId]&&expenses[itemId].length);
+  var icon=document.getElementById('btn-exp-icon-'+itemId);
+  if(icon) icon.classList.toggle('has-anns',hasExp);
+  var indicator=document.getElementById('exp-indicator-'+itemId);
+  if(indicator) indicator.style.display=hasExp?'':'none';
+}
+function showExpenseBlock(itemId){ showExpenseModal(itemId); }
+
+// --- Modal formulario gasto ---
+function openExpFormModal(isFree, editId){
+  _expIsFree = isFree;
+  _expEditId = editId || null;
+  _expFormAnns = [];
+
+  // Populate payer options
+  var payerSel = document.getElementById('ef-payer');
+  payerSel.innerHTML = TRAVELERS.map(function(t){ return '<option value="'+t+'">'+t+'</option>'; }).join('');
+
+  // Populate participant checkboxes
+  var checksDiv = document.getElementById('ef-checks');
+  checksDiv.innerHTML = TRAVELERS.map(function(t){
+    return '<label><input type="checkbox" data-traveler="'+t+'" checked><span>'+t+'</span></label>';
+  }).join('');
+
+  // Set title
+  document.getElementById('exp-form-title').textContent = editId ? 'Editar gasto' : 'Añadir gasto';
+
+  // If editing, prefill
+  if(editId){
+    var list = _expIsFree ? freeExpenses : (expenses[_expItemId] || []);
+    var entry = null;
+    for(var i=0;i<list.length;i++){if(list[i].id===editId){entry=list[i];break;}}
+    // Fallback: search all expense arrays
+    if(!entry){
+      if(_expIsFree){
+        for(var i=0;i<freeExpenses.length;i++){if(freeExpenses[i].id===editId){entry=freeExpenses[i];break;}}
+      } else {
+        var allKeys=Object.keys(expenses);
+        for(var k=0;k<allKeys.length;k++){
+          var arr=expenses[allKeys[k]]||[];
+          for(var j=0;j<arr.length;j++){
+            if(arr[j].id===editId){entry=arr[j];_expItemId=allKeys[k];break;}
+          }
+          if(entry) break;
+        }
+      }
+    }
+    if(entry){
+      document.getElementById('ef-concept').value = entry.concept || '';
+      document.getElementById('ef-date').value = entry.date || '';
+      document.getElementById('ef-amount').value = entry.amount || '';
+      payerSel.value = entry.payer;
+      Array.from(checksDiv.querySelectorAll('input')).forEach(function(cb){
+        cb.checked = entry.participants.indexOf(cb.dataset.traveler) >= 0;
+      });
+      _expFormAnns = (entry.annotations || []).slice();
+    }
+  } else {
+    document.getElementById('ef-concept').value = '';
+    document.getElementById('ef-date').value = '';
+    document.getElementById('ef-amount').value = '';
+  }
+
+  _expFormAnns = _expFormAnns.length ? _expFormAnns : [];
+  renderExpFormAnnPills();
+  document.getElementById('expFormModal').classList.remove('hidden');
+}
+function hideExpFormModal(){
+  document.getElementById('expFormModal').classList.add('hidden');
+  _expEditId = null;
+  _expFormAnns = [];
+}
+function saveExpForm(){
+  var concept = document.getElementById('ef-concept').value.trim();
+  var date = document.getElementById('ef-date').value||undefined;
+  var amount = parseFloat(document.getElementById('ef-amount').value);
+  var payer = document.getElementById('ef-payer').value;
+  var participants = Array.from(document.querySelectorAll('#ef-checks input:checked')).map(function(c){return c.dataset.traveler;});
+  if(!amount || isNaN(amount)){alert('Introduce un importe válido.');return;}
+  if(!participants.length){alert('Selecciona al menos un participante.');return;}
+  var entry = {id: _expEditId || uid(), concept: concept||'Gasto', amount: amount, payer: payer, participants: participants};
+  if(date) entry.date=date;
+  if(_expFormAnns.length) entry.annotations = _expFormAnns.slice();
+
+  if(_expIsFree){
+    if(_expEditId){
+      var idx = -1;
+      for(var i=0;i<freeExpenses.length;i++){if(freeExpenses[i].id===_expEditId){idx=i;break;}}
+      if(idx>=0) freeExpenses[idx] = entry;
+    } else {
+      freeExpenses.push(entry);
+    }
+  } else {
+    if(!expenses[_expItemId]) expenses[_expItemId] = [];
+    if(_expEditId){
+      var idx = -1;
+      for(var i=0;i<expenses[_expItemId].length;i++){if(expenses[_expItemId][i].id===_expEditId){idx=i;break;}}
+      if(idx>=0) expenses[_expItemId][idx] = entry;
+    } else {
+      expenses[_expItemId].push(entry);
+    }
+  }
+
+  hideExpFormModal();
+  if(_expIsFree){
+    renderSummary();
+  } else {
+    renderExpenseModal();
+  }
+  renderSummary();
+  syncToCloud();
+}
+
+// --- Anotaciones del formulario de gasto ---
+var _editExpFormAnnId=null;
+function showExpFormAnnEditModal(annId){
+  var ann=_expFormAnns.find(function(a){return a.id===annId;});
+  if(!ann) return;
+  _editExpFormAnnId=annId;
+  // Reuse annEditModal but set context to exp-form mode
+  _annContext={type:'exp-form', annId:annId};
+  document.getElementById('ann-edit-input').value=ann.text;
+  document.getElementById('annEditModal').classList.remove('hidden');
+}
+function showExpFormAnnModal(){
+  document.getElementById('exp-form-ann-input').value='';
+  document.getElementById('expFormAnnModal').classList.remove('hidden');
+}
+function hideExpFormAnnModal(){
+  document.getElementById('expFormAnnModal').classList.add('hidden');
+}
+function renderExpFormAnnPills(){
+  var container=document.getElementById('exp-form-ann-pills');if(!container) return;
+  if(!_expFormAnns.length){container.innerHTML='';return;}
+  var html='<div class="ann-inline" style="margin-top:8px;"><span class="ann-inline-title">Anotaciones</span>';
+  _expFormAnns.forEach(function(a){
+    html+='<span class="ann-inline-item" data-action="edit-exp-form-ann" data-ann-id="'+a.id+'">'+escHtml(a.text)+'</span>';
+  });
+  html+='</div>';
+  container.innerHTML=html;
+  var btn=document.getElementById('exp-form-ann-btn');
+  if(btn) btn.style.opacity=_expFormAnns.length?'1':'.5';
+}
+function addExpFormAnn(){
+  var inp=document.getElementById('exp-form-ann-input');
+  var text=inp.value.trim();if(!text) return;
+  _expFormAnns.push({id:uid(),text:text});
+  hideExpFormAnnModal();
+  renderExpFormAnnPills();
+}
+function deleteExpFormAnn(annId){
+  _expFormAnns=_expFormAnns.filter(function(a){return a.id!==annId;});
+  renderExpFormAnnPills();
+}
+
+// --- Eliminar gasto con confirmación ---
+function confirmDeleteExpense(itemId, expId){
+  _deleteExpItemId = itemId;
+  _deleteExpId = expId;
+  document.getElementById('confirmDeleteExpenseModal').classList.remove('hidden');
+}
+function hideConfirmDeleteExpense(){
+  document.getElementById('confirmDeleteExpenseModal').classList.add('hidden');
+  _deleteExpItemId = null; _deleteExpId = null;
+}
+function executeDeleteExpense(){
+  if(_deleteExpItemId === 'free'){
+    freeExpenses = freeExpenses.filter(function(e){return e.id!==_deleteExpId;});
+  } else {
+    if(expenses[_deleteExpItemId]){
+      expenses[_deleteExpItemId] = expenses[_deleteExpItemId].filter(function(e){return e.id!==_deleteExpId;});
+    }
+    if(_expItemId) renderExpenseModal();
+    updateExpenseIcon(_deleteExpItemId);
+  }
+  hideConfirmDeleteExpense();
+  renderSummary();
+  syncToCloud();
+}
+
+
+
+
+function showTravelersModal(){
+  renderTravelersList();
+  document.getElementById('travelersModal').classList.remove('hidden');
+}
+function hideTravelersModal(){
+  document.getElementById('travelersModal').classList.add('hidden');
+}
+function renderTravelersList(){
+  const list=document.getElementById('travelers-list');if(!list) return;
+  list.innerHTML=TRAVELERS.map((t,i)=>`
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px dashed var(--line);">
+      <span style="font-size:14px;font-weight:600;">${escHtml(t)}</span>
+      <div style="display:flex;gap:6px;">
+        <button onclick="editTraveler(${i})" style="background:transparent;border:none;cursor:pointer;font-size:14px;opacity:.6;">✏️</button>
+        <button onclick="confirmDeleteTraveler(${i})" style="background:transparent;border:none;cursor:pointer;font-size:14px;opacity:.6;">🗑️</button>
+      </div>
+    </div>`).join('');
+}
+function addTraveler(){
+  const inp=document.getElementById('traveler-input');
+  const name=inp.value.trim();if(!name) return;
+  TRAVELERS.push(name);inp.value='';
+  renderTravelersList();syncToCloud();
+}
+function deleteTraveler(i){
+  if(TRAVELERS.length<=1){alert('Debe haber al menos un viajero.');return;}
+  TRAVELERS.splice(i,1);renderTravelersList();syncToCloud();
+}
+function editTraveler(i){
+  const name=prompt('Nuevo nombre:',TRAVELERS[i]);
+  if(name&&name.trim()){TRAVELERS[i]=name.trim();renderTravelersList();syncToCloud();}
+}
+
+// ---- Pagos ----
+var _editPaymentId=null;
+function showPaymentModal(){
+  _editPaymentId=null;
+  document.getElementById('payment-modal-title').textContent='💸 Registrar pago';
+  document.getElementById('payment-delete-btn').style.display='none';
+  document.getElementById('payment-save-btn').textContent='Registrar';
+  var checksDiv=document.getElementById('pay-from-checks');
+  checksDiv.innerHTML=TRAVELERS.map(function(t){
+    return '<label><input type="checkbox" data-traveler="'+t+'"><span>'+t+'</span></label>';
+  }).join('');
+  var toSel=document.getElementById('pay-to');
+  toSel.innerHTML=TRAVELERS.map(function(t){return '<option value="'+t+'">'+t+'</option>';}).join('');
+  document.getElementById('pay-amount').value='';
+  document.getElementById('pay-concept').value='';
+  document.getElementById('paymentModal').classList.remove('hidden');
+}
+function showEditPaymentModal(pid){
+  var p=payments.find(function(x){return x.id===pid;});
+  if(!p) return;
+  _editPaymentId=pid;
+  document.getElementById('payment-modal-title').textContent='💸 Editar pago';
+  document.getElementById('payment-delete-btn').style.display='';
+  document.getElementById('payment-save-btn').textContent='Guardar';
+  var checksDiv=document.getElementById('pay-from-checks');
+  checksDiv.innerHTML=TRAVELERS.map(function(t){
+    return '<label><input type="checkbox" data-traveler="'+t+'"'+(p.from===t?' checked':'')+' ><span>'+t+'</span></label>';
+  }).join('');
+  var toSel=document.getElementById('pay-to');
+  toSel.innerHTML=TRAVELERS.map(function(t){return '<option value="'+t+'"'+(p.to===t?' selected':'')+'>'+t+'</option>';}).join('');
+  document.getElementById('pay-amount').value=p.amount;
+  document.getElementById('pay-concept').value=p.concept||'';
+  document.getElementById('paymentModal').classList.remove('hidden');
+}
+function confirmDeleteCurrentPayment(){
+  _deletePaymentId=_editPaymentId;
+  hidePaymentModal();
+  document.getElementById('confirmDeletePaymentModal').classList.remove('hidden');
+}
+function hidePaymentModal(){
+  document.getElementById('paymentModal').classList.add('hidden');
+  _editPaymentId=null;
+}
+function savePayment(){
+  var payers=Array.from(document.querySelectorAll('#pay-from-checks input:checked')).map(function(c){return c.dataset.traveler;});
+  var to=document.getElementById('pay-to').value;
+  var amountPerPerson=parseFloat(document.getElementById('pay-amount').value);
+  var concept=document.getElementById('pay-concept').value.trim()||'Pago';
+  if(!payers.length){alert('Selecciona al menos un pagador.');return;}
+  if(!amountPerPerson||isNaN(amountPerPerson)){alert('Introduce un importe válido.');return;}
+  if(_editPaymentId){
+    // Eliminar el pago original y crear uno por cada pagador seleccionado
+    var idx=payments.findIndex(function(x){return x.id===_editPaymentId;});
+    if(idx>-1) payments.splice(idx,1);
+    payers.forEach(function(from){
+      payments.push({id:uid(),from:from,to:to,amount:amountPerPerson,concept:concept});
+    });
+  } else {
+    payers.forEach(function(from){
+      payments.push({id:uid(),from:from,to:to,amount:amountPerPerson,concept:concept});
+    });
+  }
+  hidePaymentModal();renderSummary();syncToCloud();
+}
+function deletePayment(pid){
+  const idx=payments.findIndex(p=>p.id===pid);
+  if(idx>-1) payments.splice(idx,1);
+  renderSummary();syncToCloud();
+}
+
+
+function getAllExpenses(){
+  const all=[];
+  Object.entries(expenses).forEach(([itemId,list])=>{
+    (list||[]).forEach(e=>{
+      const itemName=trip.flatMap(d=>d.items).find(i=>i.id===itemId)?.h||'Actividad';
+      all.push({...e,source:itemName,itemId});
+    });
+  });
+  freeExpenses.forEach(e=>all.push({...e,source:'Gasto libre',itemId:'free'}));
+  return all;
+}
+
+function toggleSummarySection(id){
+  var hdr=document.getElementById('ss-hdr-'+id);
+  var body=document.getElementById('ss-body-'+id);
+  if(!hdr||!body) return;
+  hdr.classList.toggle('collapsed');
+  body.classList.toggle('hidden');
+}
+
+function r2(n){return Math.round(n*100)/100;}
+
+function sSection(id,title,bodyHTML){
+  return '<div class="summary-section">'
+    +'<div class="summary-section-header collapsed" data-action="toggle-summary" data-section-id="' + id + '" id="ss-hdr-'+id+'">'
+    +'<h4>'+title+'</h4><span class="s-arrow">▼</span></div>'
+    +'<div class="summary-section-body hidden" id="ss-body-'+id+'">'+bodyHTML+'</div>'
+    +'</div>';
+}
+
+function renderSummary(){
+  // Guardar estado expandido/colapsado antes de re-renderizar
+  var sectionIds=['debts','persons','payments','allexp'];
+  var expandedSections={};
+  sectionIds.forEach(function(id){
+    var body=document.getElementById('ss-body-'+id);
+    expandedSections[id]=body&&!body.classList.contains('hidden');
+  });
+  const allExp=getAllExpenses();
+  const paid={},owed={};
+  TRAVELERS.forEach(t=>{paid[t]=0;owed[t]=0;});
+  allExp.forEach(e=>{
+    if(!e.amount||!e.participants.length) return;
+    const perPerson=r2(e.amount/e.participants.length);
+    paid[e.payer]=r2((paid[e.payer]||0)+e.amount);
+    let distributed=0;
+    e.participants.forEach((t,i)=>{
+      const share = i===e.participants.length-1
+        ? r2(e.amount - distributed)
+        : perPerson;
+      owed[t]=r2((owed[t]||0)+share);
+      distributed=r2(distributed+share);
+    });
+  });
+  const balance={};
+  TRAVELERS.forEach(t=>{balance[t]=r2((paid[t]||0)-(owed[t]||0));});
+  payments.forEach(p=>{
+    balance[p.from]=r2((balance[p.from]||0)+p.amount);
+    balance[p.to]=r2((balance[p.to]||0)-p.amount);
+  });
+  const cc=TRAVELERS.filter(t=>balance[t]>0.01).map(t=>({name:t,amt:balance[t]})).sort((a,b)=>b.amt-a.amt);
+  const dd=TRAVELERS.filter(t=>balance[t]<-0.01).map(t=>({name:t,amt:-balance[t]})).sort((a,b)=>b.amt-a.amt);
+  const debts=[];let ci=0,di=0;
+  const c=cc.map(x=>({...x})),d=dd.map(x=>({...x}));
+  while(ci<c.length&&di<d.length){
+    const amt=Math.min(c[ci].amt,d[di].amt);
+    if(amt>0.01) debts.push({from:d[di].name,to:c[ci].name,amt});
+    c[ci].amt-=amt;d[di].amt-=amt;
+    if(c[ci].amt<0.01) ci++;if(d[di].amt<0.01) di++;
+  }
+  const total=Object.values(paid).reduce((a,b)=>a+b,0);
+
+  const personDetailHTML=TRAVELERS.map(t=>{
+    const myExp=allExp.filter(e=>e.participants.includes(t));
+    const detailRows=myExp.map(e=>`<div style="font-size:12px;color:var(--ink-soft);padding:3px 0 3px 10px;border-left:2px solid var(--line);">${escHtml(e.concept)} (${e.source}) — <strong>${(e.amount/e.participants.length).toFixed(2)} €</strong></div>`).join('');
+    return `<details style="margin-bottom:8px;"><summary style="cursor:pointer;display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px dashed var(--line);"><span style="font-weight:700;font-size:14px;">${t}</span><span style="font-size:12.5px;text-align:right;color:var(--ink-soft);"><span style="color:var(--confirmed-fg);font-weight:600;">Pagó ${(paid[t]||0).toFixed(2)} €</span><br>Le corresponde ${(owed[t]||0).toFixed(2)} €</span></summary><div style="margin-top:6px;">${detailRows||'<div style="font-size:12px;color:var(--ink-soft);padding:4px 0;">Sin gastos.</div>'}</div></details>`;
+  }).join('');
+
+  const paymentsHTML=payments.length
+    ? payments.map(p=>`<div onclick="showEditPaymentModal('${p.id}')" style="cursor:pointer;padding:6px 0;border-bottom:1px dashed var(--line);font-size:13px;"><strong>${p.from}</strong> → <strong>${p.to}</strong>: ${p.amount.toFixed(2)} € <span style="color:var(--ink-soft);">(${escHtml(p.concept)})</span></div>`).join('')
+    : '<div style="font-size:13px;color:var(--ink-soft);font-style:italic;padding:4px 0;">Sin pagos registrados.</div>';
+
+  const expListHTML='<div id="exp-list-container"></div>';
+  const expBody=expListHTML+'<div id="free-exp-form"></div><button onclick="openExpFormModal(true)" style="margin-top:12px;width:100%;padding:8px;border:1.5px dashed var(--line);border-radius:8px;background:transparent;font-size:13px;font-weight:600;cursor:pointer;color:var(--ink-soft);">+ Añadir gasto libre</button>';
+  const debtBody=debts.length
+    ? debts.map(d=>'<div class="debt-row"><span>'+d.from+' → '+d.to+'</span><span class="debt-amount">'+d.amt.toFixed(2)+' €</span></div>').join('')
+    : '<div style="font-size:13px;color:var(--ink-soft)">¡Todo en orden! Sin deudas pendientes.</div>';
+  const payBody=paymentsHTML+'<button onclick="showPaymentModal()" style="margin-top:10px;width:100%;padding:8px;border:1.5px dashed var(--line);border-radius:8px;background:transparent;font-size:13px;font-weight:600;cursor:pointer;color:var(--ink-soft);">+ Registrar pago</button>';
+  document.getElementById('summaryAnchor').innerHTML='<div class="summary-panel">'
+    +'<h3>💰 Resumen de gastos</h3>'
+    +'<div style="font-size:12.5px;color:var(--ink-soft);margin-bottom:4px;">Total del viaje: <strong>'+total.toFixed(2)+' €</strong></div>'
+    +sSection('debts','1. Deudas pendientes',debtBody)
+    +sSection('persons','2. Gasto por persona',personDetailHTML)
+    +sSection('payments','3. Pagos registrados',payBody)
+    +sSection('allexp','4. Todos los gastos',expBody)
+    +'</div>';
+  // Build expense list
+  setTimeout(function(){
+    var container=document.getElementById('exp-list-container');
+    if(!container) return;
+    container.innerHTML='';
+    var snapshot=getAllExpenses();
+    if(!snapshot.length){
+      container.innerHTML='<div style="font-size:13px;color:var(--ink-soft);font-style:italic;padding:4px 0;">Sin gastos registrados.</div>';
+      return;
+    }
+
+    function getRealExp(exp){
+      if(exp.itemId==='free'){
+        // find by index in freeExpenses matching concept+payer+amount
+        for(var i=0;i<freeExpenses.length;i++){
+          var e=freeExpenses[i];
+          if(e.id===exp.id&&e.concept===exp.concept&&e.payer===exp.payer&&e.amount===exp.amount){
+            return {arr:freeExpenses,idx:i};
+          }
+        }
+      } else {
+        var arr=expenses[exp.itemId]||[];
+        for(var i=0;i<arr.length;i++){
+          if(arr[i].id===exp.id&&arr[i].concept===exp.concept&&arr[i].payer===exp.payer){
+            return {arr:arr,idx:i};
+          }
+        }
+      }
+      return null;
+    }
+
+    function buildExpenseRow(exp, rowIdx){
+      var row=document.createElement('div');
+      row.style.cssText='border-bottom:1px dashed var(--line);';
+      var fid='ef2-'+rowIdx;
+
+      var summary=document.createElement('div');
+      summary.style.cssText='padding:8px 0;font-size:13px;display:flex;align-items:flex-start;justify-content:space-between;gap:8px;cursor:pointer;';
+
+      var info=document.createElement('div');
+      info.style.flex='1';
+      var annsHtml='';
+      if(exp.annotations&&exp.annotations.length){
+        annsHtml='<div style="margin-top:3px;display:flex;flex-wrap:wrap;gap:3px;">';
+        exp.annotations.forEach(function(a){annsHtml+='<span class="ann-inline-item" style="cursor:default;pointer-events:none;">'+escHtml(a.text)+'</span>';});
+        annsHtml+='</div>';
+      }
+      info.innerHTML='<span style="font-weight:700;">'+escHtml(exp.concept)+'</span> <span style="color:var(--ink-soft);font-size:11px;">('+exp.source+')</span><br>'
+        +'<span style="color:var(--ink-soft);">'+(exp.date?exp.date+' · ':'')+exp.amount.toFixed(2)+' € · Pagó '+exp.payer+'</span>'+annsHtml;
+
+      var delBtn=document.createElement('button');
+      delBtn.innerHTML='🗑️';
+      delBtn.style.cssText='background:transparent;border:none;cursor:pointer;font-size:16px;opacity:.5;padding:0;flex-shrink:0;';
+
+      summary.appendChild(info);
+      summary.appendChild(delBtn);
+
+      var form=document.createElement('div');
+      form.style.display='none';
+      form.style.cssText='display:none;background:var(--cream);border-radius:8px;padding:12px;margin-bottom:8px;border:1px solid var(--line);';
+
+      function buildForm(){
+        form.innerHTML='';
+        var fieldData=[
+          {label:'Concepto',id:fid+'-concept',type:'text',val:exp.concept||''},
+          {label:'Fecha',id:fid+'-date',type:'date',val:exp.date||''},
+          {label:'Total €',id:fid+'-amount',type:'number',val:exp.amount||''},
+        ];
+        fieldData.forEach(function(f){
+          var r2=document.createElement('div');r2.className='modal-field';
+          var lbl=document.createElement('label');lbl.textContent=f.label;
+          var inp=document.createElement('input');inp.type=f.type;inp.id=f.id;inp.value=f.val;
+          if(f.type==='number'){inp.min='0';inp.step='0.01';}
+          r2.appendChild(lbl);r2.appendChild(inp);form.appendChild(r2);
+        });
+        var payRow=document.createElement('div');payRow.className='modal-field';
+        var payLbl=document.createElement('label');payLbl.textContent='Pagó';
+        var payerSel=document.createElement('select');payerSel.id=fid+'-payer';
+        TRAVELERS.forEach(function(t){var o=document.createElement('option');o.value=t;o.textContent=t;if(t===exp.payer)o.selected=true;payerSel.appendChild(o);});
+        payRow.appendChild(payLbl);payRow.appendChild(payerSel);form.appendChild(payRow);
+        var partRow=document.createElement('div');partRow.className='modal-field';
+        var partLbl=document.createElement('label');partLbl.textContent='Para quién';
+        var checks=document.createElement('div');checks.className='traveler-checks';checks.id=fid+'-checks';
+        TRAVELERS.forEach(function(t){
+          var lbl2=document.createElement('label');
+          var cb=document.createElement('input');cb.type='checkbox';cb.dataset.traveler=t;
+          if(exp.participants.indexOf(t)>=0) cb.checked=true;
+          var sp=document.createElement('span');sp.textContent=t;
+          lbl2.appendChild(cb);lbl2.appendChild(sp);checks.appendChild(lbl2);
+        });
+        partRow.appendChild(partLbl);partRow.appendChild(checks);form.appendChild(partRow);
+        var btnRow=document.createElement('div');btnRow.style.cssText='display:flex;gap:8px;margin-top:10px;';
+        var saveBtn=document.createElement('button');
+        saveBtn.textContent='💾 Guardar';
+        saveBtn.style.cssText='flex:1;padding:8px;border:none;border-radius:8px;background:var(--teal);color:#fff;font-weight:700;cursor:pointer;';
+        saveBtn.onclick=function(){
+          var concept=document.getElementById(fid+'-concept').value.trim();
+          var date=document.getElementById(fid+'-date').value;
+          var amount=parseFloat(document.getElementById(fid+'-amount').value);
+          var payer=document.getElementById(fid+'-payer').value;
+          var participants=Array.from(document.querySelectorAll('#'+fid+'-checks input:checked')).map(function(c){return c.dataset.traveler;});
+          if(!concept||isNaN(amount)||!participants.length){alert('Faltan datos.');return;}
+          var ref=getRealExp(exp);
+          if(ref){
+            ref.arr[ref.idx].concept=concept;
+            ref.arr[ref.idx].date=date||undefined;
+            ref.arr[ref.idx].amount=amount;
+            ref.arr[ref.idx].payer=payer;
+            ref.arr[ref.idx].participants=participants;
+          }
+          form.style.display='none';
+          renderSummary();syncToCloud();
+        };
+        var cancelBtn=document.createElement('button');
+        cancelBtn.textContent='Cancelar';
+        cancelBtn.style.cssText='flex:1;padding:8px;border:none;border-radius:8px;background:var(--cream-deep);color:var(--ink);font-weight:700;cursor:pointer;';
+        cancelBtn.onclick=function(){form.style.display='none';};
+        btnRow.appendChild(saveBtn);btnRow.appendChild(cancelBtn);form.appendChild(btnRow);
+      }
+
+      summary.onclick=function(e){
+        if(e.target===delBtn||delBtn.contains(e.target)) return;
+        if(form.style.display==='none'||!form.style.display){buildForm();form.style.display='';}
+        else{form.style.display='none';}
+      };
+
+      delBtn.onclick=function(e){
+        e.stopPropagation();
+        _deleteExpItemId=exp.itemId;
+        _deleteExpId=exp.id;
+        document.getElementById('confirmDeleteExpenseModal').classList.remove('hidden');
+      };
+
+      row.appendChild(summary);
+      row.appendChild(form);
+      container.appendChild(row);
+    }
+
+    for(var i=0;i<snapshot.length;i++){
+      buildExpenseRow(snapshot[i], i);
+    }
+  },50);
+
+  // Restaurar estado expandido
+  sectionIds.forEach(function(id){
+    if(expandedSections[id]){
+      var hdr=document.getElementById('ss-hdr-'+id);
+      var body=document.getElementById('ss-body-'+id);
+      if(hdr) hdr.classList.remove('collapsed');
+      if(body) body.classList.remove('hidden');
+    }
+  });
+}
+
+// ---- Confirmaciones de borrado ----
+function showConfirmDeleteAnnotation(){
+  document.getElementById('annEditModal').classList.add('hidden');
+  document.getElementById('confirmDeleteAnnotationModal').classList.remove('hidden');
+}
+function hideConfirmDeleteAnnotation(){
+  document.getElementById('confirmDeleteAnnotationModal').classList.add('hidden');
+  document.getElementById('annEditModal').classList.remove('hidden');
+}
+function executeDeleteAnnotation(){
+  document.getElementById('confirmDeleteAnnotationModal').classList.add('hidden');
+  confirmDeleteAnnotationModal();
+}
+
+
+function confirmDeletePayment(id){
+  _deletePaymentId=id;
+  document.getElementById('confirmDeletePaymentModal').classList.remove('hidden');
+}
+function hideConfirmDeletePayment(){
+  document.getElementById('confirmDeletePaymentModal').classList.add('hidden');
+  _deletePaymentId=null;
+}
+function executeDeletePayment(){
+  var idx=payments.findIndex(function(p){return p.id===_deletePaymentId;});
+  if(idx>-1) payments.splice(idx,1);
+  hideConfirmDeletePayment();renderSummary();syncToCloud();
+}
+
+var _deleteTaskItemId=null, _deleteTaskId=null;
+function confirmDeleteTask(itemId,tid){
+  _deleteTaskItemId=itemId;_deleteTaskId=tid;
+  document.getElementById('confirmDeleteTaskModal').classList.remove('hidden');
+}
+function hideConfirmDeleteTask(){
+  document.getElementById('confirmDeleteTaskModal').classList.add('hidden');
+  _deleteTaskItemId=null;_deleteTaskId=null;
+}
+function executeDeleteTask(){
+  var itemId=_deleteTaskItemId, tid=_deleteTaskId;
+  deleteItemTask(itemId, tid);
+  hideConfirmDeleteTask();
+  if(_taskItemId) renderTaskModal(_taskItemId);
+}
+
+var _deleteTravelerIdx=null;
+function confirmDeleteTraveler(idx){
+  _deleteTravelerIdx=idx;
+  document.getElementById('confirmDeleteTravelerModal').classList.remove('hidden');
+}
+function hideConfirmDeleteTraveler(){
+  document.getElementById('confirmDeleteTravelerModal').classList.add('hidden');
+  _deleteTravelerIdx=null;
+}
+function executeDeleteTraveler(){
+  if(_deleteTravelerIdx!==null) deleteTraveler(_deleteTravelerIdx);
+  hideConfirmDeleteTraveler();
+}
+
+var _taskItemId=null, _annItemId=null;
+
+function globalTasksHTML(){
+  var list='';
+  if(globalTasksList.length){
+    globalTasksList.forEach(function(t){
+      list+='<div class="task-item-g '+(t.done?'checked':'')+'" id="gti-'+t.id+'">'
+        +'<input type="checkbox" '+(t.done?'checked':'')+' data-gtask="'+t.id+'" onchange="toggleGlobalTask(this.dataset.gtask,this.checked)">'
+        +'<label>'+escHtml(t.text)+'</label></div>';
+    });
+  } else {
+    list='<div style="font-size:13px;color:var(--ink-soft);font-style:italic;">Sin tareas todavía.</div>';
+  }
+  return '<h3>📋 Tareas del viaje</h3><div id="gtask-list">'+list+'</div>'
+    +'<div class="task-add">'
+    +'<input type="text" id="gtask-input" placeholder="Nueva tarea...">'
+    +'<button onclick="addGlobalTask()">Añadir</button>'
+    +'</div>';
+}
+
+function addGlobalTask(){
+  var inp=document.getElementById('gtask-input');
+  var text=inp.value.trim();if(!text) return;
+  globalTasksList.push({id:uid(),text:text,done:false});
+  inp.value='';
+  document.getElementById('globalTasks').innerHTML=globalTasksHTML();
+  syncToCloud();
+}
+function toggleGlobalTask(tid,checked){
+  var t=globalTasksList.find(function(x){return x.id===tid;});
+  if(t) t.done=checked;
+  var el=document.getElementById('gti-'+tid);
+  if(el) el.classList.toggle('checked',checked);
+  syncToCloud();
+}
+var _editTaskItemId=null, _editTaskId=null;
+function showTaskEditModal(itemId, tid){
+  var tasks=itemTasks[itemId]||[];
+  var t=null;
+  for(var i=0;i<tasks.length;i++){if(tasks[i].id===tid){t=tasks[i];break;}}
+  if(!t){
+    // fallback: use first task (debug)
+    setSyncStatus('DEBUG: tid='+tid+' not found in '+tasks.map(function(x){return x.id;}).join(','),'red');
+    return;
+  }
+  _editTaskItemId=itemId; _editTaskId=tid;
+  document.getElementById('task-edit-input').value=t.text;
+  // Store ids directly on delete button
+  var delBtn=document.querySelector('[data-action="confirm-delete-task-edit"]');
+  if(delBtn){delBtn.dataset.itemid=itemId; delBtn.dataset.tid=tid;}
+  document.getElementById('taskEditModal').classList.remove('hidden');
+}
+function hideTaskEditModal(){
+  document.getElementById('taskEditModal').classList.add('hidden');
+  _editTaskItemId=null; _editTaskId=null;
+}
+function saveTaskEdit(){
+  var text=document.getElementById('task-edit-input').value.trim();
+  if(!text) return;
+  var itemId=_editTaskItemId, tid=_editTaskId;
+  var t=(itemTasks[itemId]||[]).find(function(x){return x.id===tid;});
+  if(t) t.text=text;
+  hideTaskEditModal();
+  renderTaskModal(itemId);
+  updateTaskInline(itemId);
+  syncToCloud();
+}
+function showConfirmDeleteTask(){
+  _deleteTaskItemId=_editTaskItemId; _deleteTaskId=_editTaskId;
+  document.getElementById('taskEditModal').classList.add('hidden');
+  document.getElementById('confirmDeleteTaskModal').classList.remove('hidden');
+}
+
+function showTaskModal(itemId){
+  _taskItemId=itemId;
+  document.getElementById('task-modal-input').value='';
+  renderTaskModal(itemId);
+  document.getElementById('taskModal').classList.remove('hidden');
+}
+function hideTaskModal(){
+  document.getElementById('taskModal').classList.add('hidden');
+  _taskItemId=null;
+}
+function renderTaskModal(itemId){
+  var tasks=itemTasks[itemId]||[];
+  var list=document.getElementById('task-modal-list');if(!list) return;
+  if(!tasks.length){
+    list.innerHTML='<div style="font-size:13px;color:var(--ink-soft);font-style:italic;padding:8px 0;">Sin tareas todavía.</div>';
+    return;
+  }
+  list.innerHTML='';
+  for(var i=0;i<tasks.length;i++){
+    var task=tasks[i];
+    var row=document.createElement('div');
+    row.style.cssText='display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px dashed var(--line);';
+    
+    var cb=document.createElement('input');
+    cb.type='checkbox';
+    cb.checked=!!task.done;
+    cb.setAttribute('data-idx', i);
+    cb.style.cssText='accent-color:var(--teal);width:15px;height:15px;flex-shrink:0;';
+    cb.onchange=function(e){
+      e.stopPropagation();
+      var idx=parseInt(this.getAttribute('data-idx'));
+      var t=itemTasks[itemId][idx];
+      t.done=this.checked;
+      var pill=document.getElementById('task-pill-'+t.id);
+      if(pill) pill.classList.toggle('done',this.checked);
+      // Update label style
+      this.parentNode.querySelector('span').style.cssText='flex:1;font-size:13px;cursor:pointer;'+(t.done?'text-decoration:line-through;opacity:.5;':'');
+      syncToCloud();
+    };
+
+    var lbl=document.createElement('span');
+    lbl.textContent=task.text;
+    lbl.style.cssText='flex:1;font-size:13px;cursor:pointer;'+(task.done?'text-decoration:line-through;opacity:.5;':'');
+    lbl.setAttribute('data-idx', i);
+    lbl.onclick=function(){
+      var idx=parseInt(this.getAttribute('data-idx'));
+      var tid=itemTasks[itemId][idx].id;
+      showTaskEditModal(itemId, tid);
+    };
+
+    row.appendChild(cb);
+    row.appendChild(lbl);
+    list.appendChild(row);
+  }
+}
+
+function addTaskFromModal(){
+  var inp=document.getElementById('task-modal-input');
+  var text=inp.value.trim();if(!text) return;
+  if(!itemTasks[_taskItemId]) itemTasks[_taskItemId]=[];
+  itemTasks[_taskItemId].push({id:uid(),text:text,done:false});
+  inp.value='';
+  renderTaskModal(_taskItemId);
+  updateTaskInline(_taskItemId);
+  syncToCloud();
+}
+function deleteItemTask(itemId,tid){
+  if(!itemTasks[itemId]||!tid) return;
+  var idx=itemTasks[itemId].findIndex(function(t){return t.id===tid;});
+  if(idx>-1) itemTasks[itemId].splice(idx,1);
+  renderTaskModal(itemId);updateTaskInline(itemId);syncToCloud();
+}
+function toggleItemTask(itemId,tid,checked){
+  var t=(itemTasks[itemId]||[]).find(function(x){return x.id===tid;});
+  if(t) t.done=checked;
+  var pill=document.getElementById('task-pill-'+tid);
+  if(pill) pill.classList.toggle('done',checked);
+  var cb=pill?pill.querySelector('input[type=checkbox]'):null;
+  if(cb) cb.checked=checked;
+  syncToCloud();
+}
+function updateTaskInline(itemId){
+  var tasks=itemTasks[itemId]||[];
+  var el=document.getElementById('task-inline-'+itemId);
+  var icon=document.getElementById('btn-task-icon-'+itemId);
+  if(el){
+    if(tasks.length){
+      el.style.display='';
+      var html='<span class="task-inline-title">Tareas</span>';
+      tasks.forEach(function(t){
+        html+='<span class="task-inline-item'+(t.done?' done':'')+'" id="task-pill-'+t.id+'" data-action="open-task-modal" data-itemid="'+itemId+'">'+escHtml(t.text)+'</span>';
+      });
+      el.innerHTML=html;
+    } else { el.style.display='none'; }
+  }
+  if(icon) icon.classList.toggle('has-anns',tasks.length>0);
+}
+// ---- Sistema unificado de anotaciones ----
+var _annContext = null; // {type:'item'|'expense', itemId, expId, annId}
+
+function showAnnModal(itemId){
+  _annContext = {type:'item', itemId:itemId, annId:null};
+  document.getElementById('ann-add-input').value='';
+  document.getElementById('annAddModal').classList.remove('hidden');
+}
+function hideAnnAddModal(){
+  document.getElementById('annAddModal').classList.add('hidden');
+}
+function hideAnnModal(){ hideAnnAddModal(); }
+
+function showAnnEditModal(type, itemId, annId, expId){
+  var ann = null;
+  if(type==='item'){
+    ann=(itemAnnotations[itemId]||[]).find(function(a){return a.id===annId;});
+  } else {
+    var list=expId?((expenses[itemId]||[]).find(function(e){return e.id===expId;})||{}).annotations||(freeExpenses.find(function(e){return e.id===expId;})||{}).annotations:null;
+    if(list) ann=list.find(function(a){return a.id===annId;});
+  }
+  if(!ann) return;
+  _annContext = {type:type, itemId:itemId, expId:expId||null, annId:annId};
+  document.getElementById('ann-edit-input').value=ann.text;
+  document.getElementById('annEditModal').classList.remove('hidden');
+}
+function hideAnnEditModal(){
+  document.getElementById('annEditModal').classList.add('hidden');
+  _annContext = null;
+}
+
+function saveNewAnnotation(){
+  var text=document.getElementById('ann-add-input').value.trim();
+  if(!text) return;
+  if(!_annContext) return;
+  if(_annContext.type==='item'){
+    if(!itemAnnotations[_annContext.itemId]) itemAnnotations[_annContext.itemId]=[];
+    itemAnnotations[_annContext.itemId].push({id:uid(),text:text});
+    updateAnnInline(_annContext.itemId);
+  } else {
+    // expense annotation handled by expFormAnn system
+  }
+  hideAnnAddModal();
+  syncToCloud();
+}
+function saveEditAnnotation(){
+  var text=document.getElementById('ann-edit-input').value.trim();
+  if(!text||!_annContext) return;
+  if(_annContext.type==='item'){
+    var ann=(itemAnnotations[_annContext.itemId]||[]).find(function(a){return a.id===_annContext.annId;});
+    if(ann) ann.text=text;
+    updateAnnInline(_annContext.itemId);
+    syncToCloud();
+  } else if(_annContext.type==='exp-form'){
+    var ea=_expFormAnns.find(function(a){return a.id===_annContext.annId;});
+    if(ea) ea.text=text;
+    renderExpFormAnnPills();
+  }
+  hideAnnEditModal();
+}
+function confirmDeleteAnnotationModal(){
+  if(!_annContext) return;
+  if(_annContext.type==='item'){
+    itemAnnotations[_annContext.itemId]=(itemAnnotations[_annContext.itemId]||[]).filter(function(a){return a.id!==_annContext.annId;});
+    updateAnnInline(_annContext.itemId);
+    syncToCloud();
+  } else if(_annContext.type==='exp-form'){
+    _expFormAnns=_expFormAnns.filter(function(a){return a.id!==_annContext.annId;});
+    renderExpFormAnnPills();
+  }
+  hideAnnEditModal();
+}
+
+function addAnnotationFromModal(){ saveNewAnnotation(); }
+
+function updateAnnInline(itemId){
+  var anns=itemAnnotations[itemId]||[];
+  var el=document.getElementById('ann-inline-'+itemId);
+  var icon=document.getElementById('btn-ann-icon-'+itemId);
+  if(el){
+    if(anns.length){
+      el.style.display='';
+      el.innerHTML='<span class="ann-inline-title">Anotaciones</span>'+anns.map(function(a){
+        return '<span class="ann-inline-item" data-action="edit-ann" data-item-id="'+itemId+'" data-ann-id="'+a.id+'" data-ann-type="item">'
+          +escHtml(a.text)+'</span>';
+      }).join('');
+    } else { el.style.display='none'; }
+  }
+  if(icon) icon.classList.toggle('has-anns',anns.length>0);
+}
+
+
+renderSummary();
+
+function renderNav(){
+  var navEl=document.getElementById('daynav'); if(!navEl) return;
+  navEl.innerHTML='';
+  trip.forEach(function(day){
+    var a=document.createElement('a');
+    a.href='#'+day.id;
+    a.textContent=day.dayNum+' '+day.dow.substring(0,3).toUpperCase();
+    var hex=day.customColor||ACCENTS[day.accent]||'#BC5B39';
+    a.style.setProperty('--day-accent',hex);
+    navEl.appendChild(a);
+  });
+  var navLinks=Array.from(navEl.querySelectorAll('a'));
+  trip.map(function(d){return document.getElementById(d.id);}).forEach(function(s){
+    if(!s) return;
+    new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){
+          var id=e.target.id;
+          navLinks.forEach(function(a){a.classList.toggle('active',a.getAttribute('href')==='#'+id);});
+        }
+      });
+    },{rootMargin:'-45% 0px -45% 0px'}).observe(s);
+  });
+}
+
+function renderRibbon(){
+  var track=document.getElementById('ribbonTrack'); if(!track) return;
+  track.innerHTML='<div class="ribbon-fill" id="ribbonFill"></div>'
+    +ribbonStops.map(function(s){
+      return '<div class="stop"><div class="dot"></div><div class="place">'+s.name+'</div><div class="when">'+s.when+'</div></div>';
+    }).join('');
+}
+
+function updateFootRoute(){
+  var el=document.getElementById('foot-route'); if(!el) return;
+  var stops=[tripConfig.origin].concat(trip.flatMap(function(d){return d.items;}).filter(function(it){return it.city;}).map(function(it){return it.city;})).concat([tripConfig.destination]);
+  var unique=stops.filter(function(v,i,a){return a.indexOf(v)===i;});
+  el.textContent=unique.join(' ⇄ ');
+}
+
+// Render inicial del itinerario
+document.getElementById('app').innerHTML=trip.map(dayHTML).join('');
+restoreAll();
+document.getElementById('globalTasks').innerHTML=globalTasksHTML();
+renderNav();
+renderRibbon();
+updateFootRoute();
+
+const statusEl=document.getElementById('status');
+
+function updateNow(){
+  var now=new Date();
+  var flatItems=trip.flatMap(function(d){return d.items;}).filter(function(it){return it.dt&&it.dt.length;});
+
+  // 1. Marcar actividades pasadas/actuales en el timeline
+  var itemEls=Array.from(document.querySelectorAll('.timeline .item'));
+  var cur=-1;
+  flatItems.forEach(function(it,i){if(toDate(it.dt)<=now) cur=i;});
+  if(cur===flatItems.length-1&&flatItems[cur]&&(now-toDate(flatItems[cur].dt))>3*3600000) cur=flatItems.length;
+  itemEls.forEach(function(el,i){el.classList.toggle('done',i<cur);el.classList.toggle('now',i===cur);});
+
+  // 2. Scroll automático a la actividad actual (solo al cargar)
+  if(cur>=0&&cur<itemEls.length&&!window._scrolledToNow){
+    window._scrolledToNow=true;
+    setTimeout(function(){
+      itemEls[cur].scrollIntoView({behavior:'smooth',block:'center'});
+    },800);
+  }
+
+  // 3. Día actual en el carrusel de navegación
+  var currentDay=trip.find(function(d){
+    return d.items&&d.items.some(function(it){
+      return it.dt&&sameDate(now,toDate(it.dt));
+    });
+  });
+  var navLinks=Array.from(document.querySelectorAll('#daynav a'));
+  navLinks.forEach(function(a){
+    var dayId=a.getAttribute('href').replace('#','');
+    a.classList.toggle('active', currentDay&&currentDay.id===dayId);
+    a.classList.toggle('today', currentDay&&currentDay.id===dayId);
+  });
+
+  // 4. Ribbon — parada actual
+  var stopEls=Array.from(document.querySelectorAll('.ribbon-track .stop'));
+  var ribbonFill=document.getElementById('ribbonFill');
+  var totalDays=trip.length;
+  var passedDays=trip.filter(function(d){
+    return d.items&&d.items[0]&&d.items[0].dt&&toDate(d.items[0].dt)<now&&!sameDate(now,toDate(d.items[0].dt));
+  }).length;
+  var currentDayIdx=trip.findIndex(function(d){
+    return d.items&&d.items[0]&&d.items[0].dt&&sameDate(now,toDate(d.items[0].dt));
+  });
+  var frac=totalDays>1?Math.max(0,Math.min(1,passedDays/(totalDays-1))):0;
+  stopEls.forEach(function(el,i){
+    el.classList.remove('visited','current','pending');
+    var threshold=Math.round(frac*(stopEls.length-1));
+    el.classList.add(i<threshold?'visited':(i===threshold?'current':'pending'));
+  });
+  if(ribbonFill) ribbonFill.style.width='calc((100% - 44px) * '+frac+')';
+
+  // 5. Mensaje de estado
+  var firstItem=flatItems[0];
+  var lastItem=flatItems[flatItems.length-1];
+  var firstDay=firstItem?toDate(firstItem.dt):null;
+  var lastDay=lastItem?toDate(lastItem.dt):null;
+  var msg='';
+  if(firstDay&&now<firstDay){
+    var days=Math.ceil((firstDay-now)/86400000);
+    msg=days<=0?'¡Hoy empieza el viaje! 🚗':(days===1?'El viaje empieza mañana 🚗':'Faltan '+days+' días para el viaje');
+  } else if(lastDay&&now>lastDay){
+    msg='Viaje terminado — ¡a descansar! 🏁';
+  } else if(currentDayIdx>=0){
+    msg='Día '+(currentDayIdx+1)+' de '+totalDays+' del viaje';
+  }
+  if(statusEl) statusEl.textContent=msg;
+}
+updateNow();
+setInterval(updateNow,60000);
+
+window.addEventListener('load',()=>{ setTimeout(syncFromCloud,500); });
+
+// Botón volver arriba
+const btnTop=document.getElementById('btnTop');
+function checkScroll(){
+  const scrollY=window.scrollY||document.documentElement.scrollTop||document.body.scrollTop||0;
+  btnTop.classList.toggle('visible', scrollY > 200);
+}
+window.addEventListener('scroll',checkScroll,{passive:true});
+document.addEventListener('scroll',checkScroll,{passive:true});
+checkScroll();
+
+// Event delegation para botones de día (funciona con HTML dinámico)
+document.addEventListener('click', e=>{
+  const btn=e.target.closest('[data-action]');
+  if(!btn) return;
+  const action=btn.dataset.action;
+  const dayId=btn.dataset.day;
+  if(action==='open-drawer') showDrawer();
+
+  if(action==='edit-expense'){
+    openExpFormModal(false, btn.dataset.expId);
+    return;
+  }
+  if(action==='edit-expense-summary'){
+    var isFree = btn.dataset.isFree === 'true';
+    _expItemId = isFree ? null : btn.dataset.itemId;
+    openExpFormModal(isFree, btn.dataset.expId);
+    return;
+  }
+  if(action==='edit-exp-form-ann'){
+    showExpFormAnnEditModal(btn.dataset.annId);
+    return;
+  }
+  if(action==='edit-task'){
+    showTaskEditModal(btn.dataset.itemid, btn.dataset.tid);
+    return;
+  }
+  if(action==='confirm-delete-task-edit'){
+    _deleteTaskItemId=btn.dataset.itemid;
+    _deleteTaskId=btn.dataset.tid;
+    document.getElementById('taskEditModal').classList.add('hidden');
+    document.getElementById('taskModal').classList.add('hidden');
+    document.getElementById('confirmDeleteTaskModal').classList.remove('hidden');
+    return;
+  }
+  if(action==='open-task-modal'){
+    showTaskModal(btn.dataset.itemid);
+    return;
+  }
+  if(action==='toggle-summary'){
+    toggleSummarySection(btn.dataset.sectionId);
+    return;
+  }
+  if(action==='confirm-del-task'){
+    confirmDeleteTask(btn.dataset.itemid, btn.dataset.tid);
+    return;
+  }
+  if(action==='edit-ann'){
+    showAnnEditModal(btn.dataset.annType||'item', btn.dataset.itemId, btn.dataset.annId, btn.dataset.expId||null);
+    return;
+  }
+  if(action==='delete-expense'){
+    confirmDeleteExpense(btn.dataset.itemId, btn.dataset.expId);
+    return;
+  }
+  if(action==='del-exp-form-ann'){
+    deleteExpFormAnn(btn.dataset.annId);
+    return;
+  }
+  if(action==='confirm-delete-item'){
+    _deleteItemId=_editItemId;
+    document.getElementById('editItemModal').classList.add('hidden');
+    document.getElementById('confirmDeleteItemModal').classList.remove('hidden');
+    return;
+  }
+  if(action==='add-item') showAddItemModal(dayId);
+  if(action==='edit-day') showEditDayModal(dayId);
+  if(action==='delete-day') confirmDeleteDay(dayId);
+  if(action==='collapse-day') toggleDayCollapse(dayId);
+});
+
+let _addItemDayId=null;
+
+// ---- Día: colapsar, editar, eliminar ----
+function toggleDayCollapse(dayId){
+  var day=trip.find(function(d){return d.id===dayId;});
+  if(!day) return;
+  day.collapsed=!day.collapsed;
+  var timeline=document.getElementById('timeline-'+dayId);
+  var btn=document.querySelector('[data-action="collapse-day"][data-day="'+dayId+'"]');
+  if(timeline) timeline.style.display=day.collapsed?'none':'';
+  if(btn){btn.textContent=day.collapsed?'▶':'▼';btn.classList.toggle('collapsed',day.collapsed);}
+  syncToCloud();
+}
+
+var _editDayId=null;
+function showEditDayModal(dayId){
+  _editDayId=dayId;
+  var day=trip.find(function(d){return d.id===dayId;});
+  if(!day) return;
+  document.getElementById('ed-theme').value=day.theme||'';
+  document.getElementById('ed-stay').value=day.stay||'';
+  document.getElementById('ed-color').value=day.customColor||ACCENTS[day.accent]||'#BC5B39';
+  document.getElementById('editDayModal').classList.remove('hidden');
+}
+function hideEditDayModal(){
+  document.getElementById('editDayModal').classList.add('hidden');
+  _editDayId=null;
+}
+function saveEditDay(){
+  var day=trip.find(function(d){return d.id===_editDayId;});
+  if(!day) return;
+  day.theme=document.getElementById('ed-theme').value.trim()||day.theme;
+  day.stay=document.getElementById('ed-stay').value.trim()||undefined;
+  day.customColor=document.getElementById('ed-color').value||undefined;
+  hideEditDayModal();
+  var section=document.getElementById(day.id);
+  if(section){section.outerHTML=dayHTML(day);restoreAll();}
+  renderNav();syncToCloud();
+}
+
+var _deleteDayId=null;
+function confirmDeleteDay(dayId){
+  _deleteDayId=dayId;
+  document.getElementById('confirmDeleteModal').classList.remove('hidden');
+}
+function hideConfirmDelete(){
+  document.getElementById('confirmDeleteModal').classList.add('hidden');
+  _deleteDayId=null;
+}
+function executeDeleteDay(){
+  var idx=trip.findIndex(function(d){return d.id===_deleteDayId;});
+  if(idx>-1) trip.splice(idx,1);
+  hideConfirmDelete();
+  document.getElementById('app').innerHTML=trip.map(dayHTML).join('');
+  restoreAll();renderNav();renderRibbon();updateFootRoute();renderSummary();syncToCloud();
+}
+
+// ---- Trip config ----
+function showTripConfigModal(){
+  document.getElementById('tc-origin').value=tripConfig.origin||'';
+  document.getElementById('tc-destination').value=tripConfig.destination||'';
+  document.getElementById('tripConfigModal').classList.remove('hidden');
+}
+function hideTripConfigModal(){
+  document.getElementById('tripConfigModal').classList.add('hidden');
+}
+function saveTripConfig(){
+  tripConfig.origin=document.getElementById('tc-origin').value.trim()||tripConfig.origin;
+  tripConfig.destination=document.getElementById('tc-destination').value.trim()||tripConfig.destination;
+  hideTripConfigModal();
+  renderRibbon();updateFootRoute();syncToCloud();
+}
+
+function showExportJSON(){
+  var data={
+    trip:trip,
+    travelers:TRAVELERS,
+    tripConfig:tripConfig,
+    expenses:expenses,
+    freeExpenses:freeExpenses,
+    payments:payments,
+    itemTasks:itemTasks,
+    itemAnnotations:itemAnnotations,
+    globalTasksList:globalTasksList
+  };
+  var blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+  var a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='cartagena-murcia.json';
+  document.body.appendChild(a);a.click();
+  document.body.removeChild(a);
+  setTimeout(function(){URL.revokeObjectURL(a.href);},1000);
+  hideDrawer();
+}
+
+function showDrawer(){
+  document.getElementById('drawerOverlay').classList.remove('drawer-hidden');
+}
+function hideDrawer(){
+  document.getElementById('drawerOverlay').classList.add('drawer-hidden');
+}
+function showSyncModal(){
+  document.getElementById('syncModal').classList.remove('hidden');
+}
+function hideSyncModal(){
+  document.getElementById('syncModal').classList.add('hidden');
+}
+function showSyncLoadConfirm(){
+  hideSyncModal();
+  document.getElementById('syncLoadConfirmModal').classList.remove('hidden');
+}
+function hideSyncLoadConfirm(){
+  document.getElementById('syncLoadConfirmModal').classList.add('hidden');
+}
+
+var _deleteItemId=null;
+function hideConfirmDeleteItem(){
+  document.getElementById('confirmDeleteItemModal').classList.add('hidden');
+  _deleteItemId=null;
+}
+function executeDeleteItem(){
+  if(!_deleteItemId) return;
+  var day=trip.find(function(d){return d.items.some(function(i){return i.id===_deleteItemId;});});
+  if(day){
+    var idx=day.items.findIndex(function(i){return i.id===_deleteItemId;});
+    if(idx>-1) day.items.splice(idx,1);
+    var section=document.getElementById(day.id);
+    if(section){section.outerHTML=dayHTML(day);restoreAll();}
+  }
+  hideConfirmDeleteItem();
+  renderSummary();syncToCloud();
+}
+
+var _editItemId=null;
+function showEditItemModal(itemId){
+  _editItemId=itemId;
+  var item=trip.flatMap(function(d){return d.items;}).find(function(i){return i.id===itemId;});
+  if(!item) return;
+  document.getElementById('ei-time').value=item.t||'';
+  var day=trip.find(function(d){return d.items.some(function(i){return i.id===itemId;});});
+  var isoDate='';
+  if(day && day.dayNum){
+    // dayNum is day of month in July 2026
+    isoDate='2026-07-'+String(day.dayNum).padStart(2,'0');
+  }
+  document.getElementById('ei-date').value=item.date||isoDate;
+  document.getElementById('ei-icon').value=item.i||'';
+  document.getElementById('ei-title').value=item.h||'';
+  document.getElementById('ei-city').value=item.city||'';
+  document.getElementById('ei-place').value=item.p||'';
+  document.getElementById('ei-phone').value=item.ph||'';
+  document.getElementById('ei-mobile').value=item.mob||'';
+  document.getElementById('ei-web').value=item.w||'';
+  document.getElementById('ei-ticket').value=item.ticket||'';
+  document.getElementById('ei-relevant').checked=item.relevant!==false;
+  document.getElementById('editItemModal').classList.remove('hidden');
+}
+function hideEditItemModal(){
+  document.getElementById('editItemModal').classList.add('hidden');
+  _editItemId=null;
+}
+function saveEditItem(){
+  var item=trip.flatMap(function(d){return d.items;}).find(function(i){return i.id===_editItemId;});
+  if(!item) return;
+  item.t=document.getElementById('ei-time').value;
+  var newDate=document.getElementById('ei-date').value;
+  item.i=document.getElementById('ei-icon').value||item.i;
+  item.h=document.getElementById('ei-title').value.trim()||item.h;
+  item.city=document.getElementById('ei-city').value.trim()||undefined;
+  var newPlace=document.getElementById('ei-place').value.trim();
+  item.p=newPlace||undefined;
+  item.gp=newPlace||undefined;
+  item.ph=document.getElementById('ei-phone').value.trim()||undefined;
+  item.mob=document.getElementById('ei-mobile').value.trim()||undefined;
+  item.w=document.getElementById('ei-web').value.trim()||undefined;
+  item.ticket=document.getElementById('ei-ticket').value.trim()||undefined;
+  item.relevant=document.getElementById('ei-relevant').checked;
+
+  var currentDay=trip.find(function(d){return d.items.some(function(i){return i.id===_editItemId;});});
+
+  // Si cambió la fecha, mover al día correspondiente
+  if(newDate && currentDay){
+    var dayNum=parseInt(newDate.split('-')[2]);
+    var targetDay=trip.find(function(d){
+      return d.dayNum===dayNum ||
+        (d.date && d.date.indexOf(String(dayNum))===0);
+    });
+    if(targetDay && targetDay.id !== currentDay.id){
+      // Quitar del día actual
+      var idx=currentDay.items.findIndex(function(i){return i.id===_editItemId;});
+      if(idx>-1) currentDay.items.splice(idx,1);
+      // Añadir al día destino
+      item.date=newDate;
+      targetDay.items.push(item);
+      targetDay.items.sort(function(a,b){return (a.t||'').localeCompare(b.t||'');});
+      // Re-renderizar ambos días
+      hideEditItemModal();
+      var s1=document.getElementById(currentDay.id);
+      if(s1){s1.outerHTML=dayHTML(currentDay);restoreAll();}
+      var s2=document.getElementById(targetDay.id);
+      if(s2){s2.outerHTML=dayHTML(targetDay);restoreAll();}
+      syncToCloud();
+      return;
+    }
+    item.date=newDate;
+  }
+
+  // Mismo día — solo re-ordenar y re-renderizar
+  if(currentDay) currentDay.items.sort(function(a,b){return (a.t||'').localeCompare(b.t||'');});
+  hideEditItemModal();
+  if(currentDay){
+    var section=document.getElementById(currentDay.id);
+    if(section) section.outerHTML=dayHTML(currentDay);
+    restoreAll();
+  }
+  syncToCloud();
+}
+
+function showAddItemModal(dayId){
+  _addItemDayId=dayId;
+  ['mi-time','mi-icon','mi-title','mi-place','mi-phone','mi-web'].forEach(id=>{document.getElementById(id).value='';});
+  document.getElementById('addItemModal').classList.remove('hidden');
+}
+function hideAddItemModal(){
+  document.getElementById('addItemModal').classList.add('hidden');
+  _addItemDayId=null;
+}
+function saveNewItem(){
+  var title=document.getElementById('mi-title').value.trim();
+  if(!title){alert('El título es obligatorio.');return;}
+  var day=trip.find(function(d){return d.id===_addItemDayId;});if(!day) return;
+  var webVal=document.getElementById('mi-web').value.trim();
+  var newItem={
+    id:'i'+Date.now(),
+    t:document.getElementById('mi-time').value.trim()||'',
+    i:document.getElementById('mi-icon').value.trim()||'📌',
+    h:title,
+    relevant:document.getElementById('mi-relevant').checked,
+  };
+  var p=document.getElementById('mi-place').value.trim(); if(p) newItem.p=p;
+  var ph=document.getElementById('mi-phone').value.trim(); if(ph) newItem.ph=ph;
+  var city=document.getElementById('mi-city').value.trim(); if(city) newItem.city=city;
+  var ticket=document.getElementById('mi-ticket').value.trim(); if(ticket) newItem.ticket=ticket;
+  if(webVal){newItem.w=webVal; try{newItem.wl=new URL(webVal).hostname;}catch(e){} }
+  day.items.push(newItem);
+  day.items.sort(function(a,b){
+    var toMin=function(t){if(!t) return 9999;var s=t.replace('~','');var p=(s+':00').split(':');return parseInt(p[0])*60+parseInt(p[1]);};
+    return toMin(a.t)-toMin(b.t);
+  });
+  var section=document.getElementById(_addItemDayId);
+  if(section){section.outerHTML=dayHTML(day);restoreAll();}
+  hideAddItemModal();
+  renderRibbon();updateFootRoute();syncToCloud();
+}
+</script>
+<div class="drawer-overlay drawer-hidden" id="drawerOverlay" onclick="hideDrawer()">
+  <div class="drawer" onclick="event.stopPropagation()">
+    <div class="drawer-header">
+      <h3>⚙️ Ajustes</h3>
+      <button class="drawer-close" onclick="hideDrawer()">✕</button>
+    </div>
+    <div class="drawer-section">
+      <h4>Viaje</h4>
+      <button class="drawer-item" onclick="hideDrawer();showTripConfigModal()"><span class="icon">🗺️</span>Origen y destino</button>
+      <button class="drawer-item" onclick="hideDrawer();showTravelersModal()"><span class="icon">👥</span>Viajeros</button>
+    </div>
+    <div class="drawer-section">
+      <h4>Datos</h4>
+      <button class="drawer-item" onclick="hideDrawer();showSyncModal()"><span class="icon">🔄</span>Sincronizar</button>
+      <button class="drawer-item" onclick="showExportJSON()"><span class="icon">📤</span>Exportar JSON</button>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cartagena &amp; Murcia · 21–24 julio 2026</title>
+<style>
+  :root{
+    --cream:#F6F1E7;--cream-deep:#EFE7D6;--ink:#2A2520;--ink-soft:#6b6253;
+    --line:#cdbfa0;--terracotta:#BC5B39;--gold:#C9922E;--ochre:#8C6A2E;
+    --sage:#54684A;--teal:#2B5F6B;
+    --confirmed-bg:#E3ECE0;--confirmed-fg:#3C5C34;
+    --included-bg:#E1ECEF;--included-fg:#21515F;
+    --price-bg:#F5E8D0;--price-fg:#8C631B;
+    --accent:#BC5B39;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0;background:var(--cream);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.45;}
+  .wrap{max-width:640px;margin:0 auto;padding:0 18px 48px;}
+
+  header.hero{padding:28px 18px 14px;text-align:center;}
+  .hero .kicker{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);font-weight:600;}
+  .hero h1{font-family:"Iowan Old Style","Palatino Linotype",Georgia,serif;font-weight:600;font-size:32px;margin:6px 0 4px;color:var(--ink);}
+  .hero .sub{font-size:14px;color:var(--ink-soft);margin-bottom:10px;}
+  .hero .status{display:inline-block;font-size:12.5px;font-weight:700;padding:5px 14px;border-radius:999px;background:var(--cream-deep);color:var(--ink);}
+
+  .data-bar{max-width:640px;margin:10px auto 0;padding:0 18px;display:flex;gap:8px;overflow-x:auto;white-space:nowrap;-webkit-overflow-scrolling:touch;}
+  .data-bar::-webkit-scrollbar{display:none;}
+  .data-bar button,.data-bar a.bar-link{flex:0 0 auto;font-size:12.5px;font-weight:600;padding:7px 14px;border-radius:999px;border:1.5px solid var(--line);background:var(--cream);color:var(--ink);cursor:pointer;transition:background .2s;text-decoration:none;display:inline-block;}
+  .data-bar button:hover,.data-bar a.bar-link:hover{background:var(--cream-deep);}
+  #sync-status{text-align:center;font-size:12px;color:var(--ink-soft);padding:4px 0;min-height:18px;}
+
+  .ribbon{max-width:640px;margin:0 auto;padding:10px 12px 12px;overflow-x:auto;position:sticky;top:52px;z-index:19;background:var(--cream);border-bottom:1px solid var(--line);}
+  .ribbon-track{display:flex;align-items:flex-start;min-width:520px;position:relative;}
+  .ribbon-track::before{content:"";position:absolute;left:22px;right:22px;top:9px;height:2px;background:repeating-linear-gradient(to right,var(--line) 0,var(--line) 6px,transparent 6px,transparent 11px);}
+  .ribbon-fill{position:absolute;left:22px;top:9px;height:2px;background:var(--teal);width:0;z-index:0;transition:width .8s ease;}
+  .stop{flex:1;text-align:center;position:relative;z-index:1;}
+  .stop .dot{width:18px;height:18px;border-radius:50%;background:var(--cream);border:2.5px solid var(--line);margin:0 auto 8px;transition:background .4s,border-color .4s,box-shadow .4s;}
+  .stop .place{font-size:12.5px;font-weight:700;color:var(--ink-soft);transition:color .4s;}
+  .stop .when{font-size:10.5px;color:var(--ink-soft);margin-top:2px;}
+  .stop.visited .dot{background:var(--teal);border-color:var(--teal);}
+  .stop.visited .place{color:var(--ink);}
+  .stop.current .dot{background:var(--gold);border-color:var(--gold);box-shadow:0 0 0 5px rgba(201,146,46,.22);animation:pulse 2.2s infinite;}
+  .stop.current .place{color:var(--ink);font-weight:800;}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(201,146,46,.35);}70%{box-shadow:0 0 0 9px rgba(201,146,46,0);}100%{box-shadow:0 0 0 0 rgba(201,146,46,0);}}
+
+  nav.daynav{position:sticky;top:0;z-index:20;background:var(--cream);border-bottom:1px solid var(--line);display:flex;gap:8px;padding:10px 18px;overflow-x:auto;max-width:640px;margin:0 auto;}
+  nav.daynav a{flex:0 0 auto;text-decoration:none;color:var(--ink);font-size:12.5px;font-weight:600;padding:7px 13px;border-radius:999px;border:1.5px solid var(--line);white-space:nowrap;transition:background .2s,color .2s,border-color .2s;}
+  nav.daynav a.active{background:var(--day-accent,var(--ink));color:#fff;border-color:transparent;}
+  nav.daynav a.today::after{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:currentColor;margin-left:6px;vertical-align:middle;}
+
+  section.day{scroll-margin-top:160px;margin-top:12px;}
+  section.day .timeline .item{position:relative;z-index:1;}
+  .day-summary{padding:6px 0 0;display:flex;flex-wrap:wrap;gap:5px;}
+  .day-summary-item{font-size:11px;color:rgba(255,255,255,0.88);background:rgba(0,0,0,0.18);border-radius:999px;padding:2px 8px;white-space:nowrap;}
+  .day-header{
+    background:var(--accent);color:#fff;border-radius:14px;padding:16px 18px 36px;margin-bottom:4px;
+    display:flex;align-items:flex-start;justify-content:space-between;gap:10px;
+    position:relative;
+  }
+  .day-header .day-header-left{flex:1;}
+  .day-header .d-label{font-size:11px;letter-spacing:.1em;text-transform:uppercase;opacity:.85;}
+  .day-header h2{font-family:"Iowan Old Style","Palatino Linotype",Georgia,serif;font-size:20px;margin:3px 0 6px;font-weight:600;line-height:1.25;}
+  .day-header-actions{display:flex;flex-direction:row;align-items:center;gap:8px;flex-shrink:0;}
+  .btn-collapse{width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,0.2);border:1.5px solid rgba(255,255,255,0.5);color:#fff;font-size:13px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .25s;flex-shrink:0;}
+  .btn-collapse.collapsed{transform:rotate(-90deg);}
+  .btn-add-item{
+    width:32px;height:32px;border-radius:50%;
+    background:rgba(255,255,255,0.25);border:2px solid rgba(255,255,255,0.6);
+    color:#fff;font-size:20px;line-height:1;
+    display:flex;align-items:center;justify-content:center;
+    cursor:pointer;transition:background .2s;
+  }
+  .btn-add-item:hover{background:rgba(255,255,255,0.4);}
+  .btn-delete-day{
+    width:32px;height:32px;border-radius:50%;
+    background:rgba(0,0,0,0.15);border:2px solid rgba(255,255,255,0.4);
+    color:#fff;font-size:14px;line-height:1;
+    display:flex;align-items:center;justify-content:center;
+    cursor:pointer;transition:background .2s;
+  }
+  .btn-delete-day:hover{background:rgba(0,0,0,0.3);}
+
+  /* ---- Timeline: hora | nodo-encima-de-línea | contenido ---- */
+  .timeline{margin-top:6px;}
+
+  .item{
+    display:grid;
+    grid-template-columns:52px 34px 1fr;
+    border-bottom:1px dashed var(--line);
+    transition:opacity .4s;
+    padding:10px 0;
+  }
+  .item:last-child{border-bottom:none;}
+
+  /* Col 1 — hora */
+  .item .time-col{
+    grid-column:1;grid-row:1 / 999;
+    display:flex;align-items:flex-start;justify-content:flex-end;
+    padding-right:8px;padding-top:4px;
+  }
+  .item .time-col .time-tag{
+    font-family:ui-monospace,"SF Mono","Roboto Mono","Courier New",monospace;
+    font-size:11px;font-weight:700;color:var(--accent);
+    text-align:right;line-height:1.3;white-space:nowrap;
+  }
+
+  /* Col 2 — nodo arriba + línea debajo */
+  .item .node-col{
+    grid-column:2;grid-row:1 / 999;
+    display:flex;flex-direction:column;align-items:center;
+  }
+  .item .node{
+    width:26px;height:26px;border-radius:50%;
+    background:var(--cream);border:2px solid var(--accent);
+    display:flex;align-items:center;justify-content:center;
+    font-size:13px;flex-shrink:0;z-index:1;
+  }
+  .item .node-line{
+    width:2px;background:var(--line);
+    flex:1;min-height:8px;
+    margin-top:2px;
+  }
+
+  /* Col 3 — contenido */
+  .item .content{
+    grid-column:3;grid-row:1 / 999;
+    padding-left:10px;padding-right:4px;
+  }
+
+  .item .title{font-size:15px;font-weight:700;color:var(--ink);line-height:1.35;}
+  .item .meta-row{margin-top:5px;font-size:12.5px;color:var(--ink-soft);display:flex;flex-direction:column;gap:4px;}
+  .item .meta-row span{display:inline-flex;align-items:center;gap:4px;}
+  .item .meta-row a{color:var(--teal);text-decoration:none;border-bottom:1px solid currentColor;}
+  .badges{margin-top:7px;display:flex;flex-wrap:wrap;gap:6px;}
+  .badge{font-size:11.5px;font-weight:600;padding:3px 9px;border-radius:999px;}
+  .badge.confirmed{background:var(--confirmed-bg);color:var(--confirmed-fg);}
+  .badge.included{background:var(--included-bg);color:var(--included-fg);}
+  .badge.price{background:var(--price-bg);color:var(--price-fg);}
+  .item .notes{margin-top:6px;font-size:13px;color:var(--ink-soft);}
+
+  .item.done{opacity:.5;}
+  .item.now .content{background:var(--cream-deep);border-radius:10px;padding:10px 12px;box-shadow:inset 3px 0 0 0 var(--accent);}
+  .item.now .title::after{content:" · AHORA";font-size:10px;letter-spacing:.06em;font-weight:700;background:var(--accent);color:#fff;padding:2px 8px;border-radius:999px;margin-left:8px;vertical-align:middle;}
+
+  .item-actions{margin-top:8px;display:flex;gap:8px;flex-wrap:wrap;}
+  .btn-action{font-size:12px;font-weight:600;padding:5px 12px;border-radius:999px;border:1.5px dashed var(--line);background:transparent;color:var(--ink-soft);cursor:pointer;transition:background .2s,color .2s;}
+  .btn-action:hover{background:var(--cream-deep);color:var(--ink);}
+
+  /* Collapsible */
+  .cblock{margin-top:10px;border-radius:10px;border:1px solid var(--line);overflow:hidden;}
+  .cblock-header{display:flex;align-items:center;justify-content:space-between;padding:9px 14px;cursor:pointer;user-select:none;background:var(--cream-deep);}
+  .cblock-header .cblock-title{font-size:12px;font-weight:700;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.08em;}
+  .cblock-header .cblock-arrow{font-size:11px;color:var(--ink-soft);transition:transform .25s;}
+  .cblock-header.collapsed .cblock-arrow{transform:rotate(-90deg);}
+  .cblock-body{padding:10px 14px;background:var(--cream-deep);}
+  .cblock-body.hidden{display:none;}
+
+  .expense-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px;}
+  .expense-row label{font-size:12.5px;color:var(--ink-soft);}
+  .expense-row input[type=number]{width:72px;padding:4px 6px;border:1px solid var(--line);border-radius:6px;background:var(--cream);font-size:13px;color:var(--ink);}
+  .expense-row select{padding:4px 6px;border:1px solid var(--line);border-radius:6px;background:var(--cream);font-size:12.5px;color:var(--ink);}
+  .traveler-checks{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px;}
+  .traveler-checks label{display:flex;align-items:center;gap:4px;font-size:12.5px;background:var(--cream);border:1px solid var(--line);border-radius:999px;padding:3px 10px;cursor:pointer;transition:background .2s;}
+  .traveler-checks label:has(input:checked){background:var(--ink);color:#fff;border-color:var(--ink);}
+  .traveler-checks input[type=checkbox]{display:none;}
+  .exp-total{margin-top:8px;font-size:13px;font-weight:700;color:var(--price-fg);}
+
+  .task-item{display:flex;align-items:flex-start;gap:8px;padding:5px 0;border-bottom:1px dashed var(--line);}
+  .task-item:last-of-type{border-bottom:none;}
+  .task-item input[type=checkbox]{margin-top:3px;accent-color:var(--teal);width:15px;height:15px;flex-shrink:0;cursor:pointer;}
+  .task-item label{font-size:13px;cursor:pointer;flex:1;}
+  .task-item.checked label{text-decoration:line-through;opacity:.45;}
+  .task-add-row{display:flex;gap:6px;margin-top:8px;}
+  .task-add-row input[type=text]{flex:1;padding:5px 8px;border:1px solid var(--line);border-radius:8px;background:var(--cream);font-size:12.5px;color:var(--ink);}
+  .task-add-row button{padding:5px 12px;border:none;border-radius:8px;background:var(--teal);color:#fff;font-size:12.5px;font-weight:600;cursor:pointer;}
+
+  .annotation-item{display:flex;align-items:flex-start;justify-content:space-between;padding:4px 0;border-bottom:1px dashed var(--line);gap:8px;}
+  .annotation-item:last-of-type{border-bottom:none;}
+  .annotation-text{font-size:13px;color:var(--ink);white-space:pre-wrap;flex:1;}
+  .annotation-icons{display:flex;gap:6px;flex-shrink:0;}
+  .annotation-icons button{font-size:14px;background:transparent;border:none;cursor:pointer;padding:0;opacity:.6;}
+  .annotation-icons button:hover{opacity:1;}
+  .annotation-edit-area{width:100%;padding:6px 8px;border:1px solid var(--line);border-radius:8px;background:var(--cream);font-size:13px;color:var(--ink);font-family:inherit;resize:vertical;min-height:60px;}
+  .ann-add-row{display:flex;flex-direction:column;gap:6px;margin-top:12px;}
+  .ann-add-row textarea{width:100%;padding:6px 8px;border:1px solid var(--line);border-radius:8px;background:var(--cream);font-size:13px;color:var(--ink);font-family:inherit;resize:vertical;min-height:60px;}
+  .ann-add-row button{align-self:flex-end;padding:5px 14px;border:none;border-radius:8px;background:var(--teal);color:#fff;font-size:12.5px;font-weight:600;cursor:pointer;}
+  /* Tareas inline en el ítem — estilo badge azul */
+  .task-inline{margin-top:7px;display:flex;flex-direction:column;gap:5px;}
+  .task-inline-title{font-size:12px;font-weight:700;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.08em;}
+  .task-inline-item{
+    font-size:11.5px;font-weight:600;padding:3px 9px;border-radius:6px;
+    background:var(--included-bg);color:var(--included-fg);
+    cursor:pointer;align-self:flex-start;display:flex;align-items:center;gap:6px;
+  }
+  .task-inline-item.done{opacity:.5;text-decoration:line-through;}
+  .task-inline-item input[type=checkbox]{accent-color:var(--teal);cursor:pointer;}
+  .ann-inline{margin-top:7px;display:flex;flex-direction:column;gap:5px;}
+  .ann-inline-title{font-size:12px;font-weight:700;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.08em;}
+  .ann-inline-item{
+    font-size:11.5px;font-weight:600;padding:3px 9px;border-radius:6px;
+    background:var(--confirmed-bg);color:var(--confirmed-fg);
+    cursor:pointer;align-self:flex-start;
+  }
+  .ann-inline-item:hover{opacity:.8;}
+  /* Icono flotante de anotaciones */
+  .btn-ann-icon{background:transparent;border:none;cursor:pointer;font-size:15px;opacity:.55;padding:0;transition:opacity .2s;}
+  .btn-ann-icon:hover{opacity:1;}
+  .btn-ann-icon.has-anns{opacity:1;}
+
+  .tasks-global{scroll-margin-top:20px;margin-top:28px;background:var(--cream-deep);border-radius:16px;padding:18px;border:1px solid var(--line);}
+  .tasks-global h3{font-family:"Iowan Old Style","Palatino Linotype",Georgia,serif;font-size:18px;margin:0 0 14px;color:var(--ink);}
+  .task-item-g{display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px dashed var(--line);}
+  .task-item-g:last-of-type{border-bottom:none;}
+  .task-item-g input[type=checkbox]{margin-top:3px;accent-color:var(--teal);width:16px;height:16px;flex-shrink:0;cursor:pointer;}
+  .task-item-g label{font-size:13.5px;cursor:pointer;}
+  .task-item-g.checked label{text-decoration:line-through;opacity:.45;}
+  .task-add{display:flex;gap:8px;margin-top:12px;}
+  .task-add input[type=text]{flex:1;padding:7px 10px;border:1px solid var(--line);border-radius:8px;background:var(--cream);font-size:13px;color:var(--ink);}
+  .task-add button{padding:7px 14px;border:none;border-radius:8px;background:var(--teal);color:#fff;font-size:13px;font-weight:600;cursor:pointer;}
+  .tasks-empty{font-size:13px;color:var(--ink-soft);font-style:italic;padding:6px 0;}
+
+  .summary-panel{scroll-margin-top:20px;margin-top:32px;background:var(--cream-deep);border-radius:16px;padding:20px 18px;border:1px solid var(--line);}
+  .summary-panel h3{font-family:"Iowan Old Style","Palatino Linotype",Georgia,serif;font-size:18px;margin:0 0 16px;color:var(--ink);}
+  .summary-section{border-top:1px solid var(--line);margin-top:16px;padding-top:12px;}
+  .summary-section:first-of-type{border-top:none;margin-top:0;}
+  .summary-section-header{display:flex;align-items:center;justify-content:space-between;cursor:pointer;user-select:none;padding:4px 0;}
+  .summary-section-header h4{margin:0;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-soft);}
+  .summary-section-header .s-arrow{font-size:11px;color:var(--ink-soft);transition:transform .25s;}
+  .summary-section-header.collapsed .s-arrow{transform:rotate(-90deg);}
+  .summary-section-body{margin-top:10px;}
+  .summary-section-body.hidden{display:none;}
+  .summary-person{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px dashed var(--line);}
+  .summary-person:last-of-type{border-bottom:none;}
+  .summary-person .name{font-weight:700;font-size:14px;}
+  .summary-person .amounts{text-align:right;font-size:13px;}
+  .summary-person .spaid{color:var(--confirmed-fg);font-weight:600;}
+  .summary-person .sowes{color:var(--price-fg);}
+  .debts-section{margin-top:20px;}
+  .debts-section h4{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-soft);margin:0 0 10px;}
+  .debt-row{font-size:13px;padding:5px 0;border-bottom:1px dashed var(--line);display:flex;justify-content:space-between;}
+  .debt-row:last-child{border-bottom:none;}
+  .debt-amount{font-weight:700;color:var(--price-fg);}
+
+  /* Modal añadir ítem */
+  .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:100;display:flex;align-items:flex-end;justify-content:center;}
+  .modal-overlay.hidden{display:none;}
+  .modal-sheet{background:var(--cream);border-radius:20px 20px 0 0;padding:24px 20px 36px;width:100%;max-width:640px;max-height:85vh;overflow-y:auto;}
+  .modal-sheet h3{font-family:"Iowan Old Style","Palatino Linotype",Georgia,serif;font-size:18px;margin:0 0 18px;color:var(--ink);}
+  .modal-field{margin-bottom:14px;}
+  .modal-field label{display:block;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-soft);margin-bottom:5px;}
+  .modal-field input,.modal-field textarea,.modal-field select{width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:#fff;font-size:14px;color:var(--ink);font-family:inherit;}
+  .modal-field textarea{resize:vertical;min-height:60px;}
+  .modal-actions{display:flex;gap:10px;margin-top:18px;}
+  .modal-actions button{flex:1;padding:10px;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;}
+  .btn-modal-save{background:var(--teal);color:#fff;}
+  .btn-modal-cancel{background:var(--cream-deep);color:var(--ink);}
+
+  footer{text-align:center;padding:30px 18px 10px;color:var(--ink-soft);font-size:12px;}
+  footer .foot-route{font-weight:600;color:var(--ink);margin-bottom:4px;}
+
+  .btn-top{
+    position:fixed;bottom:24px;right:20px;z-index:200;
+    width:48px;height:48px;border-radius:50%;
+    background:var(--ink);color:#fff;font-size:22px;
+    border:none;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 4px 16px rgba(0,0,0,.35);
+    opacity:0;pointer-events:none;
+    transition:opacity .3s;
+  }
+  .btn-top.visible{opacity:1;pointer-events:auto;}
+  /* Menú lateral (drawer) */
+  .drawer-overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:500;display:flex;justify-content:flex-end;}
+  .drawer-overlay.drawer-hidden{display:none !important;}
+  .drawer{width:280px;max-width:85vw;height:100%;background:var(--cream);box-shadow:-4px 0 24px rgba(0,0,0,.2);display:flex;flex-direction:column;overflow-y:auto;}
+  .drawer-header{padding:20px 18px 16px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
+  .drawer-header h3{margin:0;font-family:"Iowan Old Style","Palatino Linotype",Georgia,serif;font-size:18px;color:var(--ink);}
+  .drawer-close{background:transparent;border:none;font-size:22px;cursor:pointer;color:var(--ink-soft);padding:0;line-height:1;}
+  .drawer-section{padding:16px 18px;border-bottom:1px solid var(--line);flex-shrink:0;}
+  .drawer-section h4{margin:0 0 12px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-soft);}
+  .drawer-item{display:flex;align-items:center;gap:10px;padding:10px 0;cursor:pointer;color:var(--ink);font-size:14px;font-weight:500;border:none;background:transparent;width:100%;text-align:left;}
+  .drawer-item:hover{color:var(--teal);}
+  .drawer-item span.icon{font-size:18px;width:24px;text-align:center;flex-shrink:0;}
+  .btn-hamburger{background:transparent;border:none;cursor:pointer;font-size:20px;padding:4px 8px;color:var(--ink);flex-shrink:0;}
+
+</style>
+</head>
+<body>
+
+
+
+
+<div class="drawer-overlay drawer-hidden" id="drawerOverlay" onclick="hideDrawer()">
+  <div class="drawer" onclick="event.stopPropagation()">
+    <div class="drawer-header">
+      <h3>⚙️ Ajustes</h3>
+      <button class="drawer-close" onclick="hideDrawer()">✕</button>
+    </div>
+    <div class="drawer-section">
+      <h4>Viaje</h4>
+      <button class="drawer-item" onclick="hideDrawer();showTripConfigModal()"><span class="icon">🗺️</span>Origen y destino</button>
+      <button class="drawer-item" onclick="hideDrawer();showTravelersModal()"><span class="icon">👥</span>Viajeros</button>
+    </div>
+    <div class="drawer-section">
+      <h4>Datos</h4>
+      <button class="drawer-item" onclick="hideDrawer();showSyncModal()"><span class="icon">🔄</span>Sincronizar</button>
+      <button class="drawer-item" onclick="showExportJSON()"><span class="icon">📤</span>Exportar JSON</button>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>
+<html lang="es">
+</html>
